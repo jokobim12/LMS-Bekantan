@@ -19,3 +19,9 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/mahasiswa', fn() => view('mahasiswa.dashboard'))->name('mahasiswa.dashboard');
+    Route::get('/pengajar', fn() => view('pengajar.dashboard'))->name('pengajar.dashboard');
+    Route::get('/manajer', fn() => view('manajer.dashboard'))->name('manajer.dashboard');
+});

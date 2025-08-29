@@ -58,9 +58,9 @@ class User extends Authenticatable
         return $this->hasRole('pengajar');
     }
 
-    public function isSiswa()
+    public function isMahasiswa()
     {
-        return $this->hasRole('siswa');
+        return $this->hasRole('mahasiswa');
     }
 
     public function isManager()

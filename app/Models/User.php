@@ -8,8 +8,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -21,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id',
+        'role',
         'is_active',
     ];
 
@@ -37,39 +39,25 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'profile_photo_url',
-    ];
-
-    // Relationship
-    public function role()
+    // Untuk Filament - hanya manager yang bisa akses admin panel
+    public function canAccessPanel(Panel $panel): bool
     {
-        return $this->belongsTo(Role::class);
+        return $this->role === 'manager';
     }
 
-    // Helper Methods untuk Check Role
-    public function hasRole($role)
+    // Helper methods
+    public function isMahasiswa()
     {
-        return $this->role && $this->role->name === $role;
+        return $this->role === 'mahasiswa';
     }
 
     public function isPengajar()
     {
-        return $this->hasRole('pengajar');
-    }
-
-    public function isMahasiswa()
-    {
-        return $this->hasRole('mahasiswa');
+        return $this->role === 'pengajar';
     }
 
     public function isManager()
     {
-        return $this->hasRole('manager');
-    }
-
-    public function getRoleNameAttribute()
-    {
-        return $this->role ? $this->role->display_name : 'No Role';
+        return $this->role === 'manager';
     }
 }

@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
+            $table->enum('role', ['mahasiswa', 'pengajar', 'manager'])->default('mahasiswa');
             $table->boolean('is_active')->default(true);
         });
     }
@@ -17,8 +17,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['role_id']);
-            $table->dropColumn(['role_id', 'is_active']);
+            $table->dropColumn(['role', 'is_active']);
         });
     }
 };

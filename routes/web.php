@@ -25,6 +25,7 @@ Route::middleware([
     
     // Dashboard redirect berdasarkan role
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     
     // Route untuk Mahasiswa
     Route::middleware(['role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {

@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 // Custom logout untuk semua user (termasuk admin)
 Route::post('/logout', function () {
-    auth()->logout();
+    auth('web')->logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
     

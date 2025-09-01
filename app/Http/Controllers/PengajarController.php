@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengajar;
+use App\Models\pengajar;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class PengajarController extends Controller
     public function index()
     {
         $pengajar = Pengajar::with('user')->get();
-        return view('pengajar.index', compact('pengajar'));
+        return view('pengajar', compact('pengajar'));
     }
 
     /**

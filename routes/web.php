@@ -13,7 +13,7 @@ Route::post('/logout', function () {
     auth()->logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
-    
+
     return redirect('/login'); // biar setelah logout juga ke login
 })->name('custom.logout');
 
@@ -22,15 +22,18 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    
+
     // Dashboard redirect berdasarkan role
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    // Route untuk Mahasiswa
-    Route::middleware(['role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'mahasiswa'])->name('dashboard');
+
+    // dashboard mahasiswa
+    Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+        Route::middleware(['role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'mahasiswa'])->name('dashboard');
+        });
     });
-    
+
+
     // Route untuk Pengajar
     Route::middleware(['role:pengajar'])->prefix('pengajar')->name('pengajar.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'pengajar'])->name('dashboard');

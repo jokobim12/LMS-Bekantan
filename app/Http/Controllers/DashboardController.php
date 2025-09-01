@@ -31,11 +31,11 @@ class DashboardController extends Controller
 
     public function mahasiswa()
     {
-        return view('dashboard.mahasiswa');
+        return view('mahasiswa.index');
     }
 
     public function pengajar()
     {
-        return view('dashboard.pengajar');
+        return view('pengajar.index');
     }
 }

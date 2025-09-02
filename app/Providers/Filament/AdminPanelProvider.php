@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+             ->brandLogo(fn () => view('filament.logo'))
             ->brandName('LMS Bekantan') // <--- tambahkan di sini
             // ->brandLogo(asset('images/logo.png')) // opsional logo
             // ->brandLogoHeight('2rem')            // opsional ukuran logo

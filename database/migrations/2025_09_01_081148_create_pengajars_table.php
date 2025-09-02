@@ -19,12 +19,12 @@ return new class extends Migration
         $table->text('alamat');
         $table->string('pendidikanTerakhir', 50);
         $table->string('bidangIlmu', 50);
-        $table->integer('userId');
 
-        // relasi ke tabel users
+        $table->unsignedInteger('userId');  
         $table->foreign('userId')
-                ->references('userId')->on('users')
-                ->onDelete('cascade');
+            ->references('userId')
+            ->on('users')->onDelete('cascade');
+
 
             $table->timestamps();
         });

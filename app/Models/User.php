@@ -19,6 +19,10 @@ class User extends Authenticatable implements FilamentUser
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    protected $primaryKey = 'userId';   
+    public $incrementing = true;       
+    protected $keyType = 'int';  
+
     protected $fillable = [
         'userId',
         'name',

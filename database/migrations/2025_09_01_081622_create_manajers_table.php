@@ -18,12 +18,11 @@ return new class extends Migration
             $table->string('noHp', 12);
             $table->text('alamat');
             $table->string('pendidikanTerakhir', 50)->nullable();
-            $table->integer('userId');
-
-        // relasi ke tabel users
+            $table->unsignedInteger('userId');  
             $table->foreign('userId')
-                ->references('userId')->on('users')
-                ->onDelete('cascade');
+                  ->references('userId')
+                  ->on('users')->onDelete('cascade');
+
 
             $table->timestamps();
         });

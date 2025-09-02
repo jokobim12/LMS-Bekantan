@@ -22,16 +22,15 @@ return new class extends Migration
             $table->string('tempatLahir', 100)->nullable();
             $table->year('angkatan')->nullable();
 
-
-            $table->integer('userId'); 
             $table->string('prodiId', 12);
 
             $table->timestamps();
 
             // Definisi foreign key
+            $table->unsignedInteger('userId');  
             $table->foreign('userId')
-                ->references('userId')->on('users')
-                ->onDelete('cascade');
+                  ->references('userId')
+                  ->on('users')->onDelete('cascade');
 
             $table->foreign('prodiId')
                 ->references('prodiId')->on('programstudi')

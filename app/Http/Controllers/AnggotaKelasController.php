@@ -33,7 +33,7 @@ class AnggotaKelasController extends Controller
             'kelasId'        => 'nullable|exists:kelas,kelasId',
         ]);
 
-        AnggotaKelas::create($request->only(['anggotaKelasId','id','kelasId']));
+        AnggotaKelas::create($request->only(['anggotaKelasId','userId','kelasId']));
 
         return redirect()
             ->route('anggota-kelas.index')

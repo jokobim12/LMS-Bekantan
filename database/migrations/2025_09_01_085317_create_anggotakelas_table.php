@@ -17,16 +17,13 @@ return new class extends Migration
             $table->dateTime('createdAt')->useCurrent();
             $table->timestamps();
 
-            // FK ke users
-            $table->integer('userId');
-
-            // FK ke kelas
             $table->string('kelasId', 12)->nullable();
 
-            // Definisi FK
+            $table->unsignedInteger('userId');  
             $table->foreign('userId')
-                ->references('userId')->on('users')
-                ->onDelete('cascade');
+                  ->references('userId')
+                  ->on('users')->onDelete('cascade');
+
 
             $table->foreign('kelasId')
                 ->references('kelasId')->on('kelas')

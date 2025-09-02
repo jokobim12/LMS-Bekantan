@@ -366,13 +366,13 @@
                 <p class="subtitle">Masuk ke akun Anda</p>
             </div>
 
-            <form action="{{ route('dashboard') }}" method="POST">
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input 
-                        type="email" 
+                        type="email"    
                         id="email" 
                         name="email" 
                         placeholder="Masukkan email Anda"

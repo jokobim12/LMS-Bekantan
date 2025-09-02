@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> 
         .logo-circle {
             background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
         }
@@ -22,6 +23,221 @@
         .profile-avatar {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         }
+        
+        /* Custom styles for schedule */
+        .schedule-container {
+            overflow-x: auto;
+            padding-bottom: 16px;
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        
+        .schedule-card {
+            min-width: 300px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 1024px) {
+            .schedule-grid {
+                grid-template-columns: repeat(2, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-card {
+                min-width: auto;
+            }
+        }
+        
+        /* New schedule styles */
+        .new-schedule-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .new-schedule-header {
+            padding: 25px 30px 15px;
+            background: rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .new-schedule-content {
+            padding: 30px;
+        }
+        
+        .new-schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .new-schedule-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .new-schedule-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .new-schedule-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .new-schedule-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .icon-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .math-icon {
+            background: rgba(66, 153, 225, 0.3);
+        }
+        
+        .english-icon {
+            background: rgba(72, 187, 120, 0.3);
+        }
+        
+        .physics-icon {
+            background: rgba(159, 122, 234, 0.3);
+        }
+        
+        .card-header h3 {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .card-details {
+            margin-bottom: 15px;
+        }
+        
+        .card-details p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .time-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        
+        .duration {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+        }
+        
+        .card-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        
+        .ongoing {
+            background: rgba(66, 153, 225, 0.4);
+        }
+        
+        .upcoming {
+            background: rgba(246, 173, 85, 0.4);
+        }
+        
+        .afternoon {
+            background: rgba(159, 122, 234, 0.4);
+        }
+        
+        .schedule-summary {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .summary-item {
+            padding: 0 15px;
+        }
+        
+        .summary-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .summary-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -35,7 +251,6 @@
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-full overflow-hidden">
                             <img src="https://img.pikbest.com/png-images/20240729/elegant-lion-head-logo-on-white-background_10687962.png!w700wp" alt="Logo" class="w-full h-full object-cover">
-                    
                         </div>
                     </div>
                     
@@ -45,10 +260,10 @@
                             Beranda
                         </a>
                         <a href="#" class="nav-item text-white font-medium px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all">
-                            Kelas
+                            Kelas Akademik
                         </a>
                         <a href="#" class="nav-item text-white font-medium px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all">
-                            Penjadwalan
+                            Jadwal
                         </a>
                         <a href="#" class="nav-item text-white font-medium px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all">
                             Obrolan
@@ -120,7 +335,7 @@
                 <div class="flex items-center">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"></path>
                         </svg>
                     </div>
                     <div class="ml-4">
@@ -138,8 +353,8 @@
                         </svg>
                     </div>
                     <div class="ml-4">
-                        <p class="text-2xl font-bold text-gray-900">10</p>
-                        <p class="text-gray-500 text-sm">Tugas Belum Dikumpul</p>
+                        <p class="text-2xl font-bold text-gray-900">28</p>
+                        <p class="text-gray-500 text-sm">Tugas Selesai</p>
                     </div>
                 </div>
             </div>
@@ -224,145 +439,155 @@
 
             <!-- Academic News & Enhanced Schedule -->
             <div class="space-y-6">
-                <!-- Academic News -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-semibold text-gray-900">Berita Akademik</h3>
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                            3 Baru
-                        </span>
+                <!-- Berita Akademik -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="font-semibold text-lg">Berita Akademik</h2>
+                        <span class="text-sm bg-red-100 text-red-600 px-2 py-0.5 rounded-full">7 Baru</span>
                     </div>
-                    <div class="space-y-4">
-                        <div class="border-l-4 border-red-400 pl-4 hover:bg-gray-50 p-3 rounded-r-lg transition-colors">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900 text-sm mb-1">Pengumuman UTS Semester Ganjil</h4>
-                                    <p class="text-xs text-gray-600 mb-2">Ujian Tengah Semester akan dimulai pada tanggal 15 Oktober 2024</p>
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
-                                        Penting
-                                    </span>
-                                </div>
-                                <span class="text-xs text-gray-400">2h</span>
-                            </div>
+
+                    <!-- Scrollable content -->
+                    <div class="space-y-4 max-h-64 overflow-y-auto pr-2">
+                        <div class="border-l-4 border-red-500 pl-3">
+                            <h3 class="font-semibold">Pengumuman UTS Semester Ganjil</h3>
+                            <p class="text-xs text-gray-500">Ujian Tengah Semester akan dimulai pada tanggal 15 Oktober 2024</p>
+                            <span class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded">Penting</span>
                         </div>
 
-                        <div class="border-l-4 border-blue-400 pl-4 hover:bg-gray-50 p-3 rounded-r-lg transition-colors">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900 text-sm mb-1">Workshop Coding Bootcamp</h4>
-                                    <p class="text-xs text-gray-600 mb-2">Daftar sekarang untuk workshop programming gratis</p>
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                                        Event
-                                    </span>
-                                </div>
-                                <span class="text-xs text-gray-400">1d</span>
-                            </div>
+                        <div class="border-l-4 border-blue-500 pl-3">
+                            <h3 class="font-semibold">Workshop Coding Bootcamp</h3>
+                            <p class="text-xs text-gray-500">Daftar sekarang untuk workshop programming gratis</p>
+                            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">Event</span>
                         </div>
 
-                        <div class="border-l-4 border-green-400 pl-4 hover:bg-gray-50 p-3 rounded-r-lg transition-colors">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900 text-sm mb-1">Beasiswa Prestasi Akademik</h4>
-                                    <p class="text-xs text-gray-600 mb-2">Pendaftaran beasiswa dibuka hingga akhir bulan</p>
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                                        Beasiswa
-                                    </span>
-                                </div>
-                                <span class="text-xs text-gray-400">2d</span>
-                            </div>
+                        <div class="border-l-4 border-green-500 pl-3">
+                            <h3 class="font-semibold">Beasiswa Prestasi Akademik</h3>
+                            <p class="text-xs text-gray-500">Pendaftaran beasiswa dibuka hingga akhir bulan</p>
+                            <span class="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded">Beasiswa</span>
+                        </div>
+
+                        <div class="border-l-4 border-yellow-500 pl-3">
+                            <h3 class="font-semibold">Lomba Sains Nasional</h3>
+                            <p class="text-xs text-gray-500">Pendaftaran lomba sains tingkat nasional dibuka</p>
+                            <span class="text-xs bg-yellow-100 text-yellow-600 px-2 py-0.5 rounded">Lomba</span>
+                        </div>
+
+                        <div class="border-l-4 border-indigo-500 pl-3">
+                            <h3 class="font-semibold">Seminar AI & Data Science</h3>
+                            <p class="text-xs text-gray-500">Seminar gratis untuk semua mahasiswa</p>
+                            <span class="text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded">Seminar</span>
+                        </div>
+
+                        <div class="border-l-4 border-pink-500 pl-3">
+                            <h3 class="font-semibold">Pengumuman Libur Nasional</h3>
+                            <p class="text-xs text-gray-500">Libur nasional pada 1 November 2024</p>
+                            <span class="text-xs bg-pink-100 text-pink-600 px-2 py-0.5 rounded">Info</span>
+                        </div>
+
+                        <div class="border-l-4 border-gray-500 pl-3">
+                            <h3 class="font-semibold">Info Kegiatan Kampus</h3>
+                            <p class="text-xs text-gray-500">Kegiatan sosial kampus minggu depan</p>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">Umum</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Enhanced Today's Schedule -->
-                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-bold">Jadwal Hari Ini</h3>
+                <!-- Enhanced Today's Schedule - UPDATED VERSION -->
+                <div class="new-schedule-container">
+                    <div class="new-schedule-header">
+                        <h3 class="text-xl font-bold text-white">Jadwal Hari Ini</h3>
                         <div class="bg-white bg-opacity-20 rounded-lg px-3 py-1">
-                            <span class="text-sm font-medium">Sen, 1 Sep</span>
+                            <span class="text-sm font-medium text-white">Sen, 1 Sep</span>
                         </div>
                     </div>
                     
-                    <div class="space-y-4">
-                        <div class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all">
-                            <div class="flex items-center justify-between mb-2">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-12 h-12 bg-blue-400 bg-opacity-30 rounded-lg flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                                        </svg>
+                    <div class="new-schedule-content">
+                        <div class="new-schedule-grid">
+                            <!-- Matematika -->
+                            <div class="new-schedule-card">
+                                <div class="card-header">
+                                    <div class="icon-container math-icon">
+                                        <i class="fas fa-calculator fa-lg" style="color: #4299e1;"></i>
                                     </div>
-                                    <div>
-                                        <h4 class="font-semibold text-lg">Matematika</h4>
-                                        <p class="text-indigo-100 text-sm">Ruang A1 • Pak Budi</p>
+                                    <h3>Matematika</h3>
+                                </div>
+                                
+                                <div class="card-details">
+                                    <p><i class="fas fa-map-marker-alt"></i> Ruang A1 - Pak Budi</p>
+                                    <div class="mt-2">
+                                        <span class="time-badge"><i class="far fa-clock"></i> 09:00 - 11:00</span>
+                                        <span class="duration">2 Jam</span>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <div class="text-xl font-bold">09:00</div>
-                                    <div class="text-indigo-200 text-sm">2 jam</div>
+                                
+                                <div class="card-footer">
+                                    <div class="status-badge ongoing">Sedang Berlangsung</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill ongoing" style="width: 30%"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="w-full bg-white bg-opacity-20 rounded-full h-1.5">
-                                <div class="bg-blue-300 h-1.5 rounded-full" style="width: 30%"></div>
+                            
+                            <!-- Bahasa Inggris -->
+                            <div class="new-schedule-card">
+                                <div class="card-header">
+                                    <div class="icon-container english-icon">
+                                        <i class="fas fa-language fa-lg" style="color: #48bb78;"></i>
+                                    </div>
+                                    <h3>Bahasa Inggris</h3>
+                                </div>
+                                
+                                <div class="card-details">
+                                    <p><i class="fas fa-map-marker-alt"></i> Ruang B2 - Mashrafi</p>
+                                    <div class="mt-2">
+                                        <span class="time-badge"><i class="far fa-clock"></i> 11:00 - 12:30</span>
+                                        <span class="duration">1.5 Jam</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-footer">
+                                    <div class="status-badge upcoming">Akan Datang</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill upcoming" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Fisika -->
+                            <div class="new-schedule-card">
+                                <div class="card-header">
+                                    <div class="icon-container physics-icon">
+                                        <i class="fas fa-atom fa-lg" style="color: #9f7aea;"></i>
+                                    </div>
+                                    <h3>Fisika</h3>
+                                </div>
+                                
+                                <div class="card-details">
+                                    <p><i class="fas fa-map-marker-alt"></i> Lab Sains - Pak Ahmad</p>
+                                    <div class="mt-2">
+                                        <span class="time-badge"><i class="far fa-clock"></i> 14:00 - 16:00</span>
+                                        <span class="duration">2 Jam</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-footer">
+                                    <div class="status-badge afternoon">Nanti Siang</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill afternoon" style="width: 0%"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all">
-                            <div class="flex items-center justify-between mb-2">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-12 h-12 bg-green-400 bg-opacity-30 rounded-lg flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-lg">Bahasa Inggris</h4>
-                                        <p class="text-indigo-100 text-sm">Ruang B2 • Ms. Sarah</p>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-xl font-bold">11:00</div>
-                                    <div class="text-indigo-200 text-sm">1.5 jam</div>
-                                </div>
+                        
+                        <div class="schedule-summary">
+                            <div class="summary-item">
+                                <div class="summary-value">3</div>
+                                <div class="summary-label">Kelas Hari Ini</div>
                             </div>
-                            <div class="w-full bg-white bg-opacity-20 rounded-full h-1.5">
-                                <div class="bg-green-300 h-1.5 rounded-full" style="width: 0%"></div>
+                            <div class="summary-item">
+                                <div class="summary-value">5.5</div>
+                                <div class="summary-label">Jam Belajar</div>
                             </div>
-                        </div>
-
-                        <div class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-4 border border-white border-opacity-20 hover:bg-opacity-25 transition-all">
-                            <div class="flex items-center justify-between mb-2">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-12 h-12 bg-purple-400 bg-opacity-30 rounded-lg flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-lg">Fisika</h4>
-                                        <p class="text-indigo-100 text-sm">Lab Sains • Pak Ahmad</p>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-xl font-bold">14:00</div>
-                                    <div class="text-indigo-200 text-sm">2 jam</div>
-                                </div>
-                            </div>
-                            <div class="w-full bg-white bg-opacity-20 rounded-full h-1.5">
-                                <div class="bg-purple-300 h-1.5 rounded-full" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Schedule Summary -->
-                    <div class="mt-6 bg-white bg-opacity-10 rounded-lg p-4">
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-indigo-100">Total Kelas Hari Ini</span>
-                            <span class="font-semibold">3 Kelas</span>
-                        </div>
-                        <div class="flex items-center justify-between text-sm mt-2">
-                            <span class="text-indigo-100">Waktu Belajar</span>
-                            <span class="font-semibold">5.5 Jam</span>
                         </div>
                     </div>
                 </div>
@@ -391,6 +616,30 @@
                     mobileMenu.classList.toggle('hidden');
                 });
             }
+            
+            // Update progress bars based on current time
+            function updateProgressBars() {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const currentTime = hours + minutes / 60;
+                
+                const classes = [
+                    { start: 9, end: 11, element: document.querySelectorAll('.progress-fill')[0] },
+                    { start: 11, end: 12.5, element: document.querySelectorAll('.progress-fill')[1] },
+                    { start: 14, end: 16, element: document.querySelectorAll('.progress-fill')[2] }
+                ];
+                
+                classes.forEach(cls => {
+                    if (currentTime >= cls.start && currentTime < cls.end) {
+                        const progress = ((currentTime - cls.start) / (cls.end - cls.start)) * 100;
+                        cls.element.style.width = `${progress}%`;
+                    }
+                });
+            }
+            
+            updateProgressBars();
+            setInterval(updateProgressBars, 60000); // Update every minute
         });
     </script>
 </body>

@@ -2,19 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mahasiswa; 
+use App\Models\Mahasiswa;
+use App\Models\User;
+use App\Models\ProgramStudi;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
-    // Tampilkan semua mahasiswa
+    // Daftar mahasiswa (table + pagination)
     public function index()
     {
-        $mahasiswa = Mahasiswa::with(['user', 'programStudi'])->get();
-        return response()->json($mahasiswa);
+        $mahasiswa = Mahasiswa::with(['user','programStudi'])
+            ->latest()->paginate(10);
+
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
 
-    // Simpan mahasiswa baru
+    // Form create
+    public function create()
+    {
+        $users = User::select('id','name')->orderBy('name')->get();
+        $prodi = ProgramStudi::select('prodiId','nama')->orderBy('nama')->get();
+
+        return view('mahasiswa.create', compact('users','prodi'));
+    }
+
+    // Simpan data baru
     public function store(Request $request)
     {
         $request->validate([
@@ -31,23 +44,40 @@ class MahasiswaController extends Controller
             'prodiId'      => 'required|exists:programstudi,prodiId',
         ]);
 
-        $mahasiswa = Mahasiswa::create($request->all());
-        return response()->json($mahasiswa, 201);
+        Mahasiswa::create($request->only([
+            'mhsId','nim','namaLengkap','noHp','alamat','jenisKelamin',
+            'tanggalLahir','tempatLahir','angkatan','id','prodiId'
+        ]));
+
+        return redirect()->route('mahasiswa.index')
+            ->with('success','Mahasiswa berhasil ditambahkan.');
     }
 
-    // Tampilkan detail mahasiswa
+    // Detail
     public function show($id)
     {
-        $mahasiswa = Mahasiswa::with(['user', 'programStudi'])->findOrFail($id);
-        return response()->json($mahasiswa);
+        $mhs = Mahasiswa::with(['user','programStudi'])->findOrFail($id);
+        return view('mahasiswa.show', ['mhs' => $mhs]);
     }
 
-    // Update mahasiswa
+    // Form edit
+    public function edit($id)
+    {
+        $mhs   = Mahasiswa::findOrFail($id);
+        $users = User::select('id','name')->orderBy('name')->get();
+        $prodi = ProgramStudi::select('prodiId','nama')->orderBy('nama')->get();
+
+        return view('mahasiswa.edit', compact('mhs','users','prodi'));
+    }
+
+    // Update data
     public function update(Request $request, $id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mhs = Mahasiswa::findOrFail($id);
 
         $request->validate([
+            // mhsId tidak diubah → tidak perlu unique lagi; kalau mau boleh tambahkan rule ignore:
+            // 'mhsId' => 'required|string|max:12|unique:mahasiswa,mhsId,'.$mhs->id,
             'nim'          => 'sometimes|required|string|max:10',
             'namaLengkap'  => 'sometimes|required|string|max:250',
             'noHp'         => 'sometimes|required|string',
@@ -60,16 +90,22 @@ class MahasiswaController extends Controller
             'prodiId'      => 'sometimes|required|exists:programstudi,prodiId',
         ]);
 
-        $mahasiswa->update($request->all());
-        return response()->json($mahasiswa);
+        $mhs->update($request->only([
+            'nim','namaLengkap','noHp','alamat','jenisKelamin',
+            'tanggalLahir','tempatLahir','angkatan','id','prodiId'
+        ]));
+
+        return redirect()->route('mahasiswa.index')
+            ->with('success','Mahasiswa berhasil diperbarui.');
     }
 
-    // Hapus mahasiswa
+    // Hapus
     public function destroy($id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        $mahasiswa->delete();
+        $mhs = Mahasiswa::findOrFail($id);
+        $mhs->delete();
 
-        return response()->json(null, 204);
+        return redirect()->route('mahasiswa.index')
+            ->with('success','Mahasiswa berhasil dihapus.');
     }
 }

@@ -1,16 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\ProgramStudi; 
+use App\Models\ProgramStudi;
 use Illuminate\Http\Request;
 
 class ProgramStudiController extends Controller
 {
-    // Tampilkan semua program studi
+    // Daftar program studi
     public function index()
     {
-        $programStudi = ProgramStudi::all();
-        return response()->json($programStudi);
+        $programStudi = ProgramStudi::latest()->paginate(10);
+        return view('programstudi.index', compact('programStudi'));
+    }
+
+    // Form tambah
+    public function create()
+    {
+        return view('programstudi.create');
     }
 
     // Simpan program studi baru
@@ -21,16 +27,25 @@ class ProgramStudiController extends Controller
             'nama'    => 'required|string|max:100',
         ]);
 
-        $programStudi = ProgramStudi::create($request->all());
+        ProgramStudi::create($request->only(['prodiId','nama']));
 
-        return response()->json($programStudi, 201);
+        return redirect()
+            ->route('programstudi.index')
+            ->with('success', 'Program studi berhasil ditambahkan.');
     }
 
-    // Tampilkan detail program studi
+    // Detail program studi
     public function show($id)
     {
         $programStudi = ProgramStudi::findOrFail($id);
-        return response()->json($programStudi);
+        return view('programstudi.show', compact('programStudi'));
+    }
+
+    // Form edit
+    public function edit($id)
+    {
+        $programStudi = ProgramStudi::findOrFail($id);
+        return view('programstudi.edit', compact('programStudi'));
     }
 
     // Update program studi
@@ -42,9 +57,11 @@ class ProgramStudiController extends Controller
             'nama' => 'required|string|max:100',
         ]);
 
-        $programStudi->update($request->all());
+        $programStudi->update($request->only(['nama']));
 
-        return response()->json($programStudi);
+        return redirect()
+            ->route('programstudi.index')
+            ->with('success', 'Program studi berhasil diperbarui.');
     }
 
     // Hapus program studi
@@ -53,6 +70,8 @@ class ProgramStudiController extends Controller
         $programStudi = ProgramStudi::findOrFail($id);
         $programStudi->delete();
 
-        return response()->json(null, 204);
+        return redirect()
+            ->route('programstudi.index')
+            ->with('success', 'Program studi berhasil dihapus.');
     }
 }

@@ -1,64 +1,77 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\MataKuliah; 
+use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 
 class MataKuliahController extends Controller
 {
-    // Tampilkan semua mata kuliah
+    // Daftar semua mata kuliah
     public function index()
     {
-        $matakuliah = Matakuliah::all();
-        return response()->json($matakuliah);
+        $matakuliah = MataKuliah::latest()->paginate(10);
+        return view('matakuliah.index', compact('matakuliah'));
     }
 
-    // Simpan mata kuliah baru
+    // Form tambah
+    public function create()
+    {
+        return view('matakuliah.create');
+    }
+
+    // Simpan data baru
     public function store(Request $request)
     {
         $request->validate([
-            'mkId'        => 'required|string|max:12|unique:matakuliah,mkId',
-            'nama'        => 'required|string|max:100',
-            'sksTeori'    => 'nullable|integer|min:0',
-            'sksPraktikum'=> 'nullable|integer|min:0',
-            'semester'    => 'nullable|integer|min:1|max:14',
+            'mkId'         => 'required|string|max:12|unique:matakuliah,mkId',
+            'nama'         => 'required|string|max:100',
+            'sksTeori'     => 'required|integer|min:0',
+            'sksPraktikum' => 'required|integer|min:0',
+            'semester'     => 'required|integer|min:1|max:14',
         ]);
 
-        $matakuliah = Matakuliah::create($request->all());
+        MataKuliah::create($request->only(['mkId','nama','sksTeori','sksPraktikum','semester']));
 
-        return response()->json($matakuliah, 201);
+        return redirect()->route('matakuliah.index')->with('success','Mata kuliah berhasil ditambahkan.');
     }
 
-    // Tampilkan detail mata kuliah
+    // Detail
     public function show($id)
     {
-        $matakuliah = Matakuliah::findOrFail($id);
-        return response()->json($matakuliah);
+        $matakuliah = MataKuliah::findOrFail($id);
+        return view('matakuliah.show', compact('matakuliah'));
     }
 
-    // Update mata kuliah
+    // Form edit
+    public function edit($id)
+    {
+        $matakuliah = MataKuliah::findOrFail($id);
+        return view('matakuliah.edit', compact('matakuliah'));
+    }
+
+    // Update data
     public function update(Request $request, $id)
     {
-        $matakuliah = Matakuliah::findOrFail($id);
+        $matakuliah = MataKuliah::findOrFail($id);
 
         $request->validate([
-            'nama'        => 'sometimes|required|string|max:100',
-            'sksTeori'    => 'nullable|integer|min:0',
-            'sksPraktikum'=> 'nullable|integer|min:0',
-            'semester'    => 'nullable|integer|min:1|max:14',
+            'nama'         => 'required|string|max:100',
+            'sksTeori'     => 'required|integer|min:0',
+            'sksPraktikum' => 'required|integer|min:0',
+            'semester'     => 'required|integer|min:1|max:14',
         ]);
 
-        $matakuliah->update($request->all());
+        $matakuliah->update($request->only(['nama','sksTeori','sksPraktikum','semester']));
 
-        return response()->json($matakuliah);
+        return redirect()->route('matakuliah.index')->with('success','Mata kuliah berhasil diperbarui.');
     }
 
-    // Hapus mata kuliah
+    // Hapus data
     public function destroy($id)
     {
-        $matakuliah = Matakuliah::findOrFail($id);
+        $matakuliah = MataKuliah::findOrFail($id);
         $matakuliah->delete();
 
-        return response()->json(null, 204);
+        return redirect()->route('matakuliah.index')->with('success','Mata kuliah berhasil dihapus.');
     }
 }

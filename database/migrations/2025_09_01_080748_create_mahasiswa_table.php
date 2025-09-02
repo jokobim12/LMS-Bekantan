@@ -23,14 +23,14 @@ return new class extends Migration
             $table->year('angkatan')->nullable();
 
 
-            $table->unsignedBigInteger('id'); 
+            $table->integer('userId'); 
             $table->string('prodiId', 12);
 
             $table->timestamps();
 
             // Definisi foreign key
-            $table->foreign('id')
-                ->references('id')->on('users')
+            $table->foreign('userId')
+                ->references('userId')->on('users')
                 ->onDelete('cascade');
 
             $table->foreign('prodiId')

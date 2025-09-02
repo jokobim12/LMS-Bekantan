@@ -39,7 +39,7 @@ class PengajarController extends Controller
             'alamat' => 'required|string',
             'pendidikanTerakhir' => 'nullable|string|max:50',
             'bidangIlmu' => 'required|string|max:50',
-            'user_id' => 'required|exists:users,id',
+            'userId' => 'required|exists:users,userId',
         ]);
 
         Pengajar::create($request->all());
@@ -76,7 +76,7 @@ class PengajarController extends Controller
             'alamat' => 'required|string',
             'pendidikanTerakhir' => 'nullable|string|max:50',
             'bidangIlmu' => 'required|string|max:50',
-            'user_id' => 'required|exists:users,id',
+            'userId' => 'required|exists:users,userId',
         ]);
 
         $pengajar->update($request->all());

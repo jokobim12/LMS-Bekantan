@@ -21,7 +21,7 @@ class MahasiswaController extends Controller
     // Form create
     public function create()
     {
-        $users = User::select('id','name')->orderBy('name')->get();
+        $users = User::select('userId','name')->orderBy('name')->get();
         $prodi = ProgramStudi::select('prodiId','nama')->orderBy('nama')->get();
 
         return view('mahasiswa.create', compact('users','prodi'));
@@ -40,13 +40,13 @@ class MahasiswaController extends Controller
             'tanggalLahir' => 'nullable|date',
             'tempatLahir'  => 'nullable|string|max:100',
             'angkatan'     => 'nullable|integer',
-            'id'           => 'required|exists:users,id',
+            'userId'           => 'required|exists:users,id',
             'prodiId'      => 'required|exists:programstudi,prodiId',
         ]);
 
         Mahasiswa::create($request->only([
             'mhsId','nim','namaLengkap','noHp','alamat','jenisKelamin',
-            'tanggalLahir','tempatLahir','angkatan','id','prodiId'
+            'tanggalLahir','tempatLahir','angkatan','userId','prodiId'
         ]));
 
         return redirect()->route('mahasiswa.index')
@@ -64,7 +64,7 @@ class MahasiswaController extends Controller
     public function edit($id)
     {
         $mhs   = Mahasiswa::findOrFail($id);
-        $users = User::select('id','name')->orderBy('name')->get();
+        $users = User::select('userId','name')->orderBy('name')->get();
         $prodi = ProgramStudi::select('prodiId','nama')->orderBy('nama')->get();
 
         return view('mahasiswa.edit', compact('mhs','users','prodi'));
@@ -86,13 +86,13 @@ class MahasiswaController extends Controller
             'tanggalLahir' => 'nullable|date',
             'tempatLahir'  => 'nullable|string|max:100',
             'angkatan'     => 'nullable|integer',
-            'id'           => 'sometimes|required|exists:users,id',
+            'userId'       => 'sometimes|required|exists:users,id',
             'prodiId'      => 'sometimes|required|exists:programstudi,prodiId',
         ]);
 
         $mhs->update($request->only([
             'nim','namaLengkap','noHp','alamat','jenisKelamin',
-            'tanggalLahir','tempatLahir','angkatan','id','prodiId'
+            'tanggalLahir','tempatLahir','angkatan','userId','prodiId'
         ]));
 
         return redirect()->route('mahasiswa.index')

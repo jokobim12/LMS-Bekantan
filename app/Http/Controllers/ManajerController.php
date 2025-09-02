@@ -36,7 +36,7 @@ class ManajerController extends Controller
             'noHp' => 'required|string|max:12',
             'alamat' => 'required|string',
             'pendidikanTerakhir' => 'nullable|string|max:50',
-            'user_id' => 'required|exists:users,id',
+            'userId' => 'required|exists:users,userId',
         ]);
 
         Manajer::create($request->all());

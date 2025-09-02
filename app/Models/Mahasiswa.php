@@ -22,13 +22,13 @@ class Mahasiswa extends Model
         'tanggalLahir',
         'tempatLahir',
         'angkatan',
-        'id',
+        'userId',
         'prodiId',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'id');
+        return $this->belongsTo(User::class, 'userId', 'userId');
     }
 
     public function programStudi()

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
                 $table->string('kelasId', 12)->primary();
 
-                $table->string('nama', 100)->nullable();
-                $table->year('tahunAjaran')->nullable();
+                $table->string('nama', 100);
+                $table->year('tahunAjaran');
 
                 $table->timestamps();
 

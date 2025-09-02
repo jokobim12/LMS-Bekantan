@@ -22,12 +22,12 @@ class Pengajar extends Model
         'alamat',
         'pendidikanTerakhir',
         'bidangIlmu',
-        'user_id',
+        'userId',
     ];
 
     // Relasi ke tabel users
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'userId');
     }
 }

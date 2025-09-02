@@ -19,7 +19,7 @@ class AnggotaKelasController extends Controller
     // Form create
     public function create()
     {
-        $users = User::select('id','name')->orderBy('name')->get();
+        $users = User::select('userId','name')->orderBy('name')->get();
         $kelas = Kelas::select('kelasId','nama')->orderBy('nama')->get();
         return view('anggota_kelas.create', compact('users','kelas'));
     }
@@ -28,8 +28,8 @@ class AnggotaKelasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'anggotaKelasId' => 'required|string|max:12|unique:anggota_kelas,anggotaKelasId', // pastikan nama tabel benar
-            'id'             => 'required|exists:users,id',
+            'anggotaKelasId' => 'required|string|max:12|unique:anggotakelas,anggotaKelasId', 
+            'userId'             => 'required|exists:users,userId',
             'kelasId'        => 'nullable|exists:kelas,kelasId',
         ]);
 
@@ -51,7 +51,7 @@ class AnggotaKelasController extends Controller
     public function edit($id)
     {
         $anggota = AnggotaKelas::findOrFail($id);
-        $users = User::select('id','name')->orderBy('name')->get();
+        $users = User::select('userId','name')->orderBy('name')->get();
         $kelas = Kelas::select('kelasId','nama')->orderBy('nama')->get();
         return view('anggota_kelas.edit', compact('anggota','users','kelas'));
     }
@@ -64,11 +64,11 @@ class AnggotaKelasController extends Controller
         $request->validate([
             // unique diabaikan untuk record saat ini
             'anggotaKelasId' => 'required|string|max:12|unique:anggota_kelas,anggotaKelasId,'.$anggota->id,
-            'id'      => 'nullable|exists:users,id',
+            'userId'      => 'nullable|exists:users,userId',
             'kelasId' => 'nullable|exists:kelas,kelasId',
         ]);
 
-        $anggota->update($request->only(['anggotaKelasId','id','kelasId']));
+        $anggota->update($request->only(['anggotaKelasId','userId','kelasId']));
 
         return redirect()
             ->route('anggota-kelas.index')

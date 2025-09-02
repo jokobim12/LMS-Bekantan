@@ -14,7 +14,7 @@ class AnggotaKelas extends Model
 
     protected $fillable = [
         'anggotaKelasId',
-        'id',
+        'userId',
         'kelasId',
         'createdAt',
     ];
@@ -25,7 +25,7 @@ class AnggotaKelas extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'id');
+        return $this->belongsTo(User::class, 'userId', 'userId');
     }
 
     public function kelas()

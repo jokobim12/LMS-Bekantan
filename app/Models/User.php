@@ -20,6 +20,7 @@ class User extends Authenticatable implements FilamentUser
     use TwoFactorAuthenticatable;
 
     protected $fillable = [
+        'userId',
         'name',
         'email',
         'password',

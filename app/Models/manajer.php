@@ -20,7 +20,7 @@ class Manajer extends Model
         'noHp',
         'alamat',
         'pendidikanTerakhir',
-        'user_id',
+        'userId',
     ];
 
     // Relasi ke User

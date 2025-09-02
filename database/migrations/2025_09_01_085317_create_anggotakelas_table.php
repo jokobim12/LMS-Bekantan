@@ -18,14 +18,14 @@ return new class extends Migration
             $table->timestamps();
 
             // FK ke users
-            $table->unsignedBigInteger('id')->nullable();
+            $table->integer('userId');
 
             // FK ke kelas
             $table->string('kelasId', 12)->nullable();
 
             // Definisi FK
-            $table->foreign('id')
-                ->references('id')->on('users')
+            $table->foreign('userId')
+                ->references('userId')->on('users')
                 ->onDelete('cascade');
 
             $table->foreign('kelasId')

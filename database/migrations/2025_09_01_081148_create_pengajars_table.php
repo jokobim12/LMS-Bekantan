@@ -17,11 +17,14 @@ return new class extends Migration
         $table->string('nama', 250);
         $table->string('noHp', 15); 
         $table->text('alamat');
-        $table->string('pendidikanTerakhir', 50)->nullable();
+        $table->string('pendidikanTerakhir', 50);
         $table->string('bidangIlmu', 50);
+        $table->integer('userId');
 
         // relasi ke tabel users
-        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+        $table->foreign('userId')
+                ->references('userId')->on('users')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

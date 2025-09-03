@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\MataKuliahController;
+use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\AnggotaKelasController;
+use App\Http\Controllers\PengajarController;
+use App\Http\Controllers\ManajerController;
+
 
 Route::get('/welcome', function () {
     return redirect('/welcome');

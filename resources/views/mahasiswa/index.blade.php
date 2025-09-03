@@ -149,7 +149,7 @@
                         <i class="fas fa-graduation-cap text-white text-lg"></i>
                     </div>
                     <div>
-                        <span class="text-xl font-bold text-gray-900">EduSphere</span>
+                        <span class="text-xl font-bold text-gray-900">Bekantan Jantan</span>
                         <div class="text-xs text-gray-500">Learning Management System</div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                 <!-- Navigation Menu -->
                 <div class="hidden md:flex items-center space-x-8">
                     <!-- Beranda -->
-                    <a href="#beranda" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                    <a href="{{ url('/index') }}" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
                         <i class="fas fa-home"></i>
                         <span>Beranda</span>
                     </a>
@@ -165,42 +165,25 @@
                     <!-- Kelas Akademik -->
                     <div class="dropdown relative">
                         <button class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                            <i class="fas fa-book-open"></i>
-                            <span>Kelas Akademik</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
+                            <a href="{{ url('/kelas') }}" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                                <i class="fas fa-book-open"></i>
+                                <span>Kelas Akademik</span>
+                            </a>
                         </button>
-                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100">
-                            <div class="p-4">
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-laptop-code mr-3 text-blue-500"></i>Teknik Informatika
-                                </a>
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-calculator mr-3 text-green-500"></i>Matematika
-                                </a>
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-globe mr-3 text-purple-500"></i>Bahasa Inggris
-                                </a>
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-flask mr-3 text-red-500"></i>Fisika
-                                </a>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Jadwal -->
-                    <a href="#jadwal" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    <a href="{{ url('/jadwal') }}" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
                         <i class="fas fa-calendar-alt"></i>
                         <span>Jadwal</span>
                     </a>
 
                     <!-- Obrolan -->
-                    <a href="#obrolan" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors relative">
+                    <a href="{{ url('/obrolan') }}" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
                         <i class="fas fa-comments"></i>
                         <span>Obrolan</span>
-                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                            <span class="text-xs text-white font-bold">3</span>
-                        </div>
                     </a>
+
 
                     <!-- Multi Bahasa -->
                     <div class="dropdown relative">
@@ -236,12 +219,13 @@
                         <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100">
                             <div class="p-4">
                                 <div class="px-4 py-3 border-b border-gray-100">
-                                    <p class="font-medium text-gray-900">Chaya Putri</p>
+                                    <p class="font-medium text-gray-900">Chaya Dewi</p>
                                     <p class="text-sm text-gray-500">chaya@student.ac.id</p>
                                 </div>
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                <a href="{{ url('/profil') }}" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
                                     <i class="fas fa-user mr-3"></i>Profil Saya
                                 </a>
+
                                 <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
                                     <i class="fas fa-cog mr-3"></i>Pengaturan
                                 </a>
@@ -249,9 +233,11 @@
                                     <i class="fas fa-medal mr-3"></i>Prestasi
                                 </a>
                                 <hr class="my-2">
-                                <a href="#" class="block px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                                    <i class="fas fa-sign-out-alt mr-3"></i>Keluar
-                                </a>
+                                <!-- Logout -->
+                                <form method="POST" action="{{ route('custom.logout') }}">
+                                    @csrf
+                                    <button type="submit">Logout</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -305,8 +291,8 @@
                                 <i class="fas fa-check-circle text-green-600 text-lg"></i>
                             </div>
                         </div>
-                        <div class="text-3xl font-bold text-gray-900 mb-1">28</div>
-                        <div class="text-gray-600 text-sm">Tugas Selesai</div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">5</div>
+                        <div class="text-gray-600 text-sm">Tugas Belum Selesai</div>
                     </div>
 
                     <!-- Jadwal Hari Ini -->
@@ -466,9 +452,6 @@
 
                         <!-- Quick Actions -->
                         <div class="mt-6 grid grid-cols-2 gap-4">
-                            <button class="bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition-colors">
-                                <i class="fas fa-plus mr-2"></i>Tambah Jadwal
-                            </button>
                             <button class="border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors">
                                 <i class="fas fa-calendar mr-2"></i>Lihat Kalender
                             </button>

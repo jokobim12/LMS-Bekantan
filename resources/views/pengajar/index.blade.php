@@ -262,9 +262,10 @@
                                     <i class="fas fa-chart-line mr-3"></i>Statistik Mengajar
                                 </a>
                                 <hr class="my-2">
-                                <a href="#" class="block px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                                    <i class="fas fa-sign-out-alt mr-3"></i>Keluar
-                                </a>
+                                <form method="POST" action="{{ route('custom.logout') }}">
+                                    @csrf
+                                    <button type="submit">Logout</button>
+                                </form>
                             </div>
                         </div>
                     </div>

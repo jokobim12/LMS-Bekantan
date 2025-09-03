@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Models\MataKuliah;
 
 Route::get('/welcome', function () {
     return redirect('/welcome');
@@ -48,4 +49,15 @@ Route::middleware([
     Route::middleware(['role:pengajar'])->prefix('pengajar')->name('pengajar.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'pengajar'])->name('dashboard');
     });
+
+    // Halaman mahasiswa
+    // Route ke halaman kelas
+    Route::get('/kelas', function () {
+    $mataKuliah = MataKuliah::all(); // M besar
+    return view('mahasiswa.kelas', compact('mataKuliah'));
+    })->middleware(['auth']);
+    Route::view('/jadwal', 'mahasiswa.jadwal')->middleware(['auth']);
+    Route::view('/obrolan', 'mahasiswa.obrolan')->middleware(['auth']);
+    Route::view('/profil', 'mahasiswa.profil')->middleware(['auth']);
+    Route::view('/index', 'mahasiswa.index')->middleware(['auth']);
 });

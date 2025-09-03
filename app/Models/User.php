@@ -10,7 +10,6 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -19,9 +18,13 @@ class User extends Authenticatable implements FilamentUser
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasRoles;
+
+    protected $primaryKey = 'userId';   
+    public $incrementing = true;       
+    protected $keyType = 'int';  
 
     protected $fillable = [
+        'userId',
         'name',
         'email',
         'password',

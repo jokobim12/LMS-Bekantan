@@ -6,6 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\UserMenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -27,9 +28,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('LMS Bekantan') // <--- tambahkan di sini
-            // ->brandLogo(asset('images/logo.png')) // opsional logo
-            // ->brandLogoHeight('2rem')            // opsional ukuran logo
+            ->brandLogo(fn () => view('filament.logo'))
+            ->brandName('LMS Bekantan')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -39,6 +39,7 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
@@ -57,5 +58,16 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    // Taruh di luar method panel, dan return array of UserMenuItem
+    public function userMenuItems(): array
+    {
+        return [
+            UserMenuItem::make()
+                ->label('Edit Profil')
+                ->url(route('profile.show')) // route Jetstream
+                ->icon('heroicon-o-user-circle'),
+        ];
     }
 }

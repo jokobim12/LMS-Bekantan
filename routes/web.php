@@ -30,6 +30,7 @@ Route::middleware([
     
     // Dashboard redirect berdasarkan role
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     
     // Route untuk Mahasiswa
     Route::middleware(['role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
@@ -40,4 +41,28 @@ Route::middleware([
     Route::middleware(['role:pengajar'])->prefix('pengajar')->name('pengajar.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'pengajar'])->name('dashboard');
     });
+
+
+    // Tambahan Route CRUD
+    // Program Studi
+    Route::resource('programstudi', ProgramStudiController::class);
+
+    // Mata Kuliah
+    Route::resource('matakuliah', MataKuliahController::class);
+
+    // Mahasiswa
+    Route::resource('mahasiswa', MahasiswaController::class);
+
+    // Kelas
+    Route::resource('kelas', KelasController::class);
+
+    // Anggota Kelas
+    Route::resource('anggota-kelas', AnggotaKelasController::class);
+
+    //Pengajar
+    Route::resource('pengajar', PengajarController::class);
+
+    //Manajer
+    Route::resource('manajer', ManajerController::class);
+
 });

@@ -13,192 +13,269 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
             position: relative;
             overflow: hidden;
         }
 
         /* Background decorative elements */
-        .bg-decoration {
-            position: absolute;
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            z-index: 1;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .circle {
+        .floating-element {
             position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
+            opacity: 0.1;
+            animation: floatBg 15s ease-in-out infinite;
         }
 
-        .circle:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 10%;
+        .floating-circle {
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .floating-square {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .floating-triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 26px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .element-1 {
+            width: 60px;
+            height: 60px;
+            top: 15%;
             left: 10%;
             animation-delay: 0s;
         }
 
-        .circle:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            top: 70%;
-            left: 80%;
-            animation-delay: 2s;
+        .element-2 {
+            width: 40px;
+            height: 40px;
+            top: 25%;
+            right: 20%;
+            animation-delay: -2s;
         }
 
-        .circle:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            top: 40%;
+        .element-3 {
+            top: 45%;
             left: 5%;
-            animation-delay: 4s;
+            animation-delay: -4s;
         }
 
-        .circle:nth-child(4) {
-            width: 100px;
-            height: 100px;
-            top: 20%;
-            right: 10%;
-            animation-delay: 1s;
+        .element-4 {
+            width: 80px;
+            height: 80px;
+            bottom: 30%;
+            right: 15%;
+            animation-delay: -6s;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        /* Dots pattern */
-        .dots {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background-image: radial-gradient(circle, rgba(255,255,255,0.2) 2px, transparent 2px);
-            background-size: 20px 20px;
-            top: 60%;
+        .element-5 {
+            width: 30px;
+            height: 30px;
+            bottom: 20%;
             left: 15%;
-            animation: float 8s ease-in-out infinite;
+            animation-delay: -8s;
         }
 
-        /* Main container */
+        .element-6 {
+            top: 60%;
+            right: 5%;
+            animation-delay: -10s;
+        }
+
+        .element-7 {
+            width: 50px;
+            height: 50px;
+            top: 70%;
+            left: 25%;
+            animation-delay: -12s;
+        }
+
+        .element-8 {
+            width: 35px;
+            height: 35px;
+            top: 10%;
+            right: 40%;
+            animation-delay: -14s;
+        }
+
+        @keyframes floatBg {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-20px) translateX(10px) rotate(90deg); 
+            }
+            50% { 
+                transform: translateY(-10px) translateX(-15px) rotate(180deg); 
+            }
+            75% { 
+                transform: translateY(-30px) translateX(5px) rotate(270deg); 
+            }
+        }
+
+        .login-header {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.8;
+            z-index: 10;
+        }
+
         .container {
             display: flex;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            width: 900px;
-            max-width: 95%;
+            max-width: 900px;
+            width: 100%;
             min-height: 500px;
-            position: relative;
             z-index: 2;
+            position: relative;
         }
 
-        /* Left side - Illustration */
+        /* Left Side - Photo with Text Overlay */
         .left-side {
             flex: 1;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 40px;
-            position: relative;
             color: white;
+            position: relative;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(8, 145, 178, 0.7), rgba(14, 116, 144, 0.8)),
+                              url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .illustration {
-            width: 280px;
-            height: 280px;
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
+            margin: 0 auto 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%; /* ini bikin gambar benar-benar bulat */
+        }
+
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-subtext {
+            font-size: 16px;
+            color: white;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .bekantan {
+            color: gray; /* abu-abu */
+            font-weight: bold; /* optional */
+        }
+
+        .jantan {
+             color: black; /* hitam */
+             font-weight: bold; /* optional */
+        }
+
+        .info-content {
+            text-align: center;
+            z-index: 2;
             position: relative;
         }
 
-        .monkey-icon {
-            width: 120px;
-            height: 120px;
-            background: #2563eb;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .welcome-text {
-            text-align: center;
-        }
-
-        .welcome-text h1 {
-            font-size: 28px;
+        .info-title {
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .welcome-text p {
+        .info-description {
             font-size: 16px;
-            opacity: 0.9;
+            opacity: 0.95;
             line-height: 1.5;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
-        /* Right side - Login form */
+        /* Right Side - Login Form */
         .right-side {
             flex: 1;
-            padding: 60px 50px;
+            padding: 50px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background: white;
+            z-index: 2;
+            position: relative;
         }
 
-        .logo-section {
-            text-align: center;
+        .form-header {
+            text-align: left;
             margin-bottom: 40px;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: #2563eb;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .logo h2 {
-            color: #1e40af;
+        .form-title {
             font-size: 24px;
             font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
         }
 
-        .subtitle {
+        .form-subtitle {
             color: #6b7280;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .form-group {
@@ -210,29 +287,51 @@
             margin-bottom: 8px;
             color: #374151;
             font-weight: 500;
+            font-size: 14px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 16px;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease;
             background: #f9fafb;
+            color: #1f2937;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #2563eb;
+            border-color: #06b6d4;
             background: white;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        .forgot-link {
+            text-align: right;
+            margin-top: 8px;
+        }
+
+        .forgot-link a {
+            color: #06b6d4;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-link a:hover {
+            color: #0891b2;
         }
 
         .login-btn {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            padding: 14px;
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -240,130 +339,87 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
         }
 
-        .forgot-password {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .forgot-password a {
-            color: #2563eb;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .forgot-password a:hover {
-            color: #1d4ed8;
-            text-decoration: underline;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #6b7280;
-            font-size: 12px;
+        .login-btn:active {
+            transform: translateY(0);
         }
 
         /* Responsive design */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
-                width: 95%;
+                margin: 20px;
                 max-width: 400px;
             }
 
             .left-side {
-                padding: 30px;
-                min-height: 200px;
+                padding: 40px 30px;
+                min-height: 250px;
             }
 
-            .illustration {
-                width: 150px;
-                height: 150px;
-                margin-bottom: 20px;
-            }
-
-            .monkey-icon {
-                width: 80px;
-                height: 80px;
-                font-size: 40px;
-            }
-
-            .welcome-text h1 {
+            .info-title {
                 font-size: 20px;
+            }
+
+            .info-description {
+                font-size: 14px;
             }
 
             .right-side {
                 padding: 40px 30px;
             }
-        }
 
-        /* Floating elements animation */
-        .floating-element {
-            position: absolute;
-            opacity: 0.3;
-        }
-
-        .floating-book {
-            top: 20%;
-            right: 20%;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            animation: float 5s ease-in-out infinite;
-        }
-
-        .floating-graduation {
-            bottom: 30%;
-            left: 20%;
-            width: 35px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: float 7s ease-in-out infinite reverse;
+            .login-header {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-decoration">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="dots"></div>
+
+    <!-- Floating background elements - moved to back -->
+    <div class="floating-bg">
+        <div class="floating-element floating-circle element-1"></div>
+        <div class="floating-element floating-square element-2"></div>
+        <div class="floating-element floating-triangle element-3"></div>
+        <div class="floating-element floating-circle element-4"></div>
+        <div class="floating-element floating-square element-5"></div>
+        <div class="floating-element floating-triangle element-6"></div>
+        <div class="floating-element floating-circle element-7"></div>
+        <div class="floating-element floating-square element-8"></div>
     </div>
 
     <div class="container">
-        <!-- Left Side - Illustration -->
+        <!-- Left Side - Photo with Text Overlay -->
         <div class="left-side">
-            <div class="illustration">
-                <div class="monkey-icon">🐒</div>
-                <div class="floating-book floating-element"></div>
-                <div class="floating-graduation floating-element"></div>
+            <div class="logo-section">
+                <div class="logo-circle">
+                    <img src="{{ asset('FOTO/LOGO.jpeg') }}" alt="Logo">
+                </div>
+                <div class="logo-text">
+                    <span class="bekantan">BEKANTAN</span><span class="jantan">JANTAN</span>
+                </div>
             </div>
-            <div class="welcome-text">
-                <h1>Selamat Datang!</h1>
-                <p>Bergabunglah dengan platform pembelajaran online yang mudah dan interaktif</p>
+
+            <div class="info-content">
+                <h1 class="info-title">Tempat Belajar & Berbagi Ilmu</h1>
+                <p class="info-description">Satu langkah menuju pengalaman belajar digital yang menyenangkan.</p>
             </div>
         </div>
 
         <!-- Right Side - Login Form -->
         <div class="right-side">
-            <div class="logo-section">
-                <div class="logo">
-                    <div class="logo-icon">🐒</div>
-                    <h2>LMS Bekantan</h2>
-                </div>
-                <p class="subtitle">Masuk ke akun Anda</p>
+            <div class="form-header">
+                <h2 class="form-title">Selamat Datang Kembali!</h2>
+                <p class="form-subtitle">Masuk ke akun Anda untuk melanjutkan pembelajaran</p>
             </div>
 
             <form action="{{ route('login') }}" method="POST">
@@ -385,56 +441,66 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Kata Sandi</label>
                     <input 
                         type="password" 
                         id="password" 
                         name="password" 
-                        placeholder="Masukkan password Anda"
+                        placeholder="Masukkan kata sandi Anda"
                         required
                     >
                     @error('password')
                         <span style="color: #ef4444; font-size: 14px;">{{ $message }}</span>
                     @enderror
+                    <div class="forgot-link">
+                        <a href="{{ route('password.request') }}">Lupa kata sandi?</a>
+                    </div>
                 </div>
 
-                <button type="submit" class="login-btn">Masuk</button>
+                <button type="submit" class="login-btn">Masuk ke Akun</button>
             </form>
-
-            <div class="forgot-password">
-                <a href="{{ route('password.request') }}">Lupa kata sandi?</a>
-            </div>
-
-            <div class="footer">
-                <p>&copy; 2025 LMS Bekantan. All rights reserved.</p>
-            </div>
         </div>
     </div>
 
     <script>
-        // Add some interactive effects
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('input');
             
             inputs.forEach(input => {
                 input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'translateY(-2px)';
+                    this.style.transform = 'scale(1.02)';
                 });
                 
                 input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'translateY(0)';
+                    this.style.transform = 'scale(1)';
                 });
             });
 
-            // Add hover effect to login button
+            // Enhanced button interactions
             const loginBtn = document.querySelector('.login-btn');
-            loginBtn.addEventListener('mouseenter', function() {
-                this.style.background = 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)';
+            
+            loginBtn.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(1px) scale(0.98)';
+            });
+            
+            loginBtn.addEventListener('mouseup', function() {
+                this.style.transform = 'translateY(-2px) scale(1)';
             });
             
             loginBtn.addEventListener('mouseleave', function() {
-                this.style.background = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+                this.style.transform = 'translateY(0) scale(1)';
             });
+
+            // Add subtle animations on load
+            const container = document.querySelector('.container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.6s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
         });
     </script>
 </body>

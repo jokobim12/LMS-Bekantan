@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Cek apakah user manager sudah ada
+        $adminExists = User::where('email', 'bekantan@gmail.com')->exists();
+        
+        if (!$adminExists) {
+            try {
+                User::create([
+                    'name' => 'Manager',
+                    'email' => 'bekantan@gmail.com',
+                    'password' => Hash::make('admin123'), 
+                    'role' => 'manager',
+                    'is_active' => true,
+                    'email_verified_at' => now(),
+                ]);
+                
+                $this->command->info('Manager user created successfully!');
+            } catch (\Exception $e) {
+                $this->command->error('Error creating manager user: ' . $e->getMessage());
+                
+                // Alternatif pakai DB::insert kalau User::create error
+                DB::table('users')->insert([
+                    'name' => 'Manager',
+                    'email' => 'bekantan@gmail.com',
+                    'password' => Hash::make('admin123'), 
+                    'role' => 'manager',
+                    'is_active' => 1,
+                    'email_verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                
+                $this->command->info('Manager user created via DB insert!');
+            }
+        } else {
+            $this->command->info('Manager user already exists.');
+        }
     }
 }

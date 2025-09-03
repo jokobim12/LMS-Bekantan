@@ -8,6 +8,11 @@ Route::get('/welcome', function () {
     return redirect('/welcome');
 });
 
+
+Route::get('/welcome', function () {
+    return redirect('/welcome');
+});
+
 // Halaman awal langsung redirect ke login
 Route::get('/', function () {
     return redirect('login');

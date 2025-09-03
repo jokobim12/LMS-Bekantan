@@ -84,6 +84,12 @@ return [
     |
     */
 
+    'panel_providers' => [
+        App\Providers\Filament\AdminPanelProvider::class,
+        // Panel lain kalau ada
+    ],
+
+
     'livewire_loading_delay' => 'default',
 
 ];

@@ -9,7 +9,6 @@ class Pengajar extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengajars';
     protected $primaryKey = 'pengajarId';
     public $incrementing = false; // karena primary key bukan auto increment
     protected $keyType = 'string';

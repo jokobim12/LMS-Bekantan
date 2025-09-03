@@ -372,7 +372,7 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input 
-                        type="email"    
+                        type="email" 
                         id="email" 
                         name="email" 
                         placeholder="Masukkan email Anda"

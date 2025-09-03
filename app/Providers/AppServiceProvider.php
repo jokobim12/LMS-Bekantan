@@ -10,18 +10,12 @@ use Filament\Navigation\UserMenuItem;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
-        // Override response logout bawaan Filament
+        // Pakai custom logout response
         $this->app->bind(LogoutResponse::class, CustomLogoutResponse::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
          Filament::serving(function () {

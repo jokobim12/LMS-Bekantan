@@ -9,7 +9,6 @@ class LogoutResponse implements LogoutResponseContract
 {
     public function toResponse($request): RedirectResponse
     {
-        // redirect setelah logout admin
-        return redirect('/login');
+        return redirect('/login'); // arahkan ke /login
     }
 }

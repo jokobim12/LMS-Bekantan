@@ -1,16 +1,21 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
+Route::get('/welcome', function () {
+    return redirect('/welcome');
+});
+
 // Halaman awal langsung redirect ke login
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('login');
 });
 
 // Custom logout untuk semua user (termasuk admin)
 Route::post('/logout', function () {
-    auth()->logout();
+    Auth::logout(); 
     request()->session()->invalidate();
     request()->session()->regenerateToken();
     

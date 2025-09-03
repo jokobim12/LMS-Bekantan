@@ -3,314 +3,851 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>EduSphere - Platform E-Learning Modern</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .logo-circle {
-            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
         }
         
-        .nav-item {
-            transition: all 0.2s ease;
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
-        .nav-item:hover {
+        .glass-morphism {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .profile-avatar {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .card-gradient:hover {
+            border-color: #667eea;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.1);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        
+        .navbar-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .welcome-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+        
+        .activity-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .activity-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .schedule-item {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateX(8px);
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            height: 8px;
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Header Navigation -->
-    <header class="bg-gradient-to-r from-blue-400 to-blue-500 shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <!-- Left Section: Logo and Navigation -->
-                <div class="flex items-center space-x-8">
-                    <!-- Logo -->
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full logo-circle flex items-center justify-center">
-                            <span class="text-gray-600 font-bold text-sm">LOGO</span>
-                        </div>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 navbar-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white text-lg"></i>
                     </div>
-                    
-                    <!-- Navigation Menu -->
-                    <nav class="hidden md:flex items-center space-x-6">
-                        <a href="#" class="nav-item text-white font-medium px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all">
-                            Beranda
-                        </a>
-                        <a href="#" class="nav-item text-white font-medium px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all">
-                            Kelas
-                        </a>
-                        <a href="#" class="nav-item text-white font-medium px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all">
-                            Penjadwalan
-                        </a>
-                        <a href="#" class="nav-item text-white font-medium px-3 py-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all">
-                            Obrolan
-                        </a>
-                    </nav>
-                </div>
-                
-                <!-- Right Section: Notifications and Profile -->
-                <div class="flex items-center space-x-4">
-                    <!-- Notification Bell -->
-                    <button class="text-white hover:text-gray-200 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5-5 5-5h-5m-6 10v-2a4 4 0 00-8 0v2m8 0H5m8 0v5"></path>
-                        </svg>
-                    </button>
-                    
-                    <!-- Language Selector -->
-                    <div class="flex items-center space-x-1 text-white">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="text-sm font-medium">ID</span>
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    
-                    <!-- Profile Section -->
-                    <div class="flex items-center space-x-2 cursor-pointer hover:bg-white hover:bg-opacity-10 rounded-lg px-2 py-1 transition-all">
-                        <div class="w-8 h-8 rounded-full profile-avatar flex items-center justify-center">
-                            <span class="text-white text-sm font-bold">C</span>
-                        </div>
-                        <span class="text-white font-medium">Chaya</span>
-                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
+                    <div>
+                        <span class="text-xl font-bold text-gray-900">EduSphere</span>
+                        <div class="text-xs text-gray-500">Learning Management System</div>
                     </div>
                 </div>
-                
-                <!-- Mobile Menu Button -->
+
+                <!-- Navigation Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Beranda -->
+                    <a href="#beranda" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                        <i class="fas fa-home"></i>
+                        <span>Beranda</span>
+                    </a>
+
+                    <!-- Kelas Akademik -->
+                    <div class="dropdown relative">
+                        <button class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                            <i class="fas fa-book-open"></i>
+                            <span>Kelas Akademik</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100">
+                            <div class="p-4">
+                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    <i class="fas fa-laptop-code mr-3 text-blue-500"></i>Teknik Informatika
+                                </a>
+                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-3 text-green-500"></i>Matematika
+                                </a>
+                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    <i class="fas fa-globe mr-3 text-purple-500"></i>Bahasa Inggris
+                                </a>
+                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    <i class="fas fa-flask mr-3 text-red-500"></i>Fisika
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jadwal -->
+                    <a href="#jadwal" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Jadwal</span>
+                    </a>
+
+                    <!-- Obrolan -->
+                    <a href="#obrolan" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors relative">
+                        <i class="fas fa-comments"></i>
+                        <span>Obrolan</span>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+                            <span class="text-xs text-white font-bold">3</span>
+                        </div>
+                    </a>
+
+                    <!-- Multi Bahasa -->
+                    <div class="dropdown relative">
+                        <button class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                            <i class="fas fa-globe"></i>
+                            <span id="current-lang">ID</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100">
+                            <div class="p-4">
+                                <a href="#" onclick="changeLanguage('id', 'ID')" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    🇮🇩 Bahasa Indonesia
+                                </a>
+                                <a href="#" onclick="changeLanguage('en', 'EN')" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    🇺🇸 English
+                                </a>
+                                <a href="#" onclick="changeLanguage('zh', '中文')" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    🇨🇳 中文
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile -->
+                    <div class="dropdown relative">
+                        <button class="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition-colors">
+                            <span class="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center font-bold">
+                                C
+                            </span>
+                            <span class="font-medium">Chaya</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100">
+                            <div class="p-4">
+                                <div class="px-4 py-3 border-b border-gray-100">
+                                    <p class="font-medium text-gray-900">Chaya Putri</p>
+                                    <p class="text-sm text-gray-500">chaya@student.ac.id</p>
+                                </div>
+                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    <i class="fas fa-user mr-3"></i>Profil Saya
+                                </a>
+                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    <i class="fas fa-cog mr-3"></i>Pengaturan
+                                </a>
+                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                                    <i class="fas fa-medal mr-3"></i>Prestasi
+                                </a>
+                                <hr class="my-2">
+                                <a href="#" class="block px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                    <i class="fas fa-sign-out-alt mr-3"></i>Keluar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
                 <div class="md:hidden">
-                    <button class="text-white hover:text-gray-200 focus:outline-none focus:text-gray-200">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
+                    <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600">
+                        <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
-    </header>
-    
-    <!-- Main Content Area -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Welcome Section -->
-        <div class="mb-8">
-            <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white relative overflow-hidden">
-                <div class="relative z-10">
-                    <h1 class="text-3xl font-bold mb-2">Selamat Datang, Chaya! 👋</h1>
-                    <p class="text-purple-100 text-lg">Mari mulai pembelajaran yang produktif hari ini</p>
-                </div>
-                <div class="absolute top-0 right-0 w-64 h-64 bg-white bg-opacity-10 rounded-full -mr-32 -mt-32"></div>
-                <div class="absolute bottom-0 left-0 w-48 h-48 bg-white bg-opacity-5 rounded-full -ml-24 -mb-24"></div>
-            </div>
-        </div>
+    </nav>
 
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-2xl font-bold text-gray-900">12</p>
-                        <p class="text-gray-500 text-sm">Kelas Aktif</p>
+    <!-- Main Content -->
+    <main class="pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Welcome Section -->
+            <section id="beranda" class="mb-12">
+                <div class="welcome-card p-8 text-white relative">
+                    <div class="relative z-10">
+                        <h1 class="text-3xl font-bold mb-2">
+                            Selamat Datang, Chaya! 👋
+                        </h1>
+                        <p class="text-lg opacity-90">
+                            Mari mulai pembelajaran yang produktif hari ini
+                        </p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+            <!-- Statistics Cards -->
+            <section class="mb-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Kelas Aktif -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover-lift">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-book-open text-blue-600 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">12</div>
+                        <div class="text-gray-600 text-sm">Kelas Aktif</div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-2xl font-bold text-gray-900">28</p>
-                        <p class="text-gray-500 text-sm">Tugas Selesai</p>
+
+                    <!-- Tugas Selesai -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover-lift">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-check-circle text-green-600 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">28</div>
+                        <div class="text-gray-600 text-sm">Tugas Dibagikan</div>
                     </div>
+
+                    <!-- Jadwal Hari Ini -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover-lift">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-calendar-day text-yellow-600 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">5</div>
+                        <div class="text-gray-600 text-sm">Jadwal Hari Ini</div>
+                    </div>
+
+                    <!-- Pesan Baru -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover-lift">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-envelope text-purple-600 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">15</div>
+                        <div class="text-gray-600 text-sm">Pesan Baru</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Left Column - Activities & Schedule -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Recent Activities -->
+                    <section class="activity-card p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-gray-900">Aktivitas Terbaru</h2>
+                            <button class="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                                Lihat Semua
+                            </button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
+                                <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-book text-blue-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900">Tugas Matematika telah dibagikan</h3>
+                                    <p class="text-sm text-gray-600">2 jam yang lalu</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
+                                <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-check-circle text-green-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900">Kelas Bahasa Inggris selesai</h3>
+                                    <p class="text-sm text-gray-600">4 jam yang lalu</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
+                                <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-comment text-purple-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900">Pesan baru dari guru Fisika</h3>
+                                    <p class="text-sm text-gray-600">1 hari yang lalu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Schedule Section -->
+                    <section id="jadwal" class="activity-card p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-gray-900">Jadwal Mata Kuliah Hari Ini</h2>
+                            <div class="text-sm text-gray-500">
+                                Selasa, 2 September 2025
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Schedule Item 1 -->
+                            <div class="schedule-item p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                        <h3 class="font-semibold text-gray-900">Matematika Diskrit</h3>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-600">08:00 - 09:40</span>
+                                </div>
+                                <div class="ml-6 text-sm text-gray-600">
+                                    <p><i class="fas fa-user mr-2"></i>Dr. Ahmad Sutrisno</p>
+                                    <p><i class="fas fa-map-marker-alt mr-2"></i>Ruang A301</p>
+                                </div>
+                            </div>
+
+                            <!-- Schedule Item 2 -->
+                            <div class="schedule-item p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                        <h3 class="font-semibold text-gray-900">Algoritma & Pemrograman</h3>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-600">10:00 - 11:40</span>
+                                </div>
+                                <div class="ml-6 text-sm text-gray-600">
+                                    <p><i class="fas fa-user mr-2"></i>Prof. Sari Dewi</p>
+                                    <p><i class="fas fa-map-marker-alt mr-2"></i>Lab Komputer 1</p>
+                                </div>
+                            </div>
+
+                            <!-- Schedule Item 3 -->
+                            <div class="schedule-item p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                                        <h3 class="font-semibold text-gray-900">Bahasa Inggris Teknik</h3>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-600">13:00 - 14:40</span>
+                                </div>
+                                <div class="ml-6 text-sm text-gray-600">
+                                    <p><i class="fas fa-user mr-2"></i>Ms. Jennifer Smith</p>
+                                    <p><i class="fas fa-map-marker-alt mr-2"></i>Ruang B205</p>
+                                </div>
+                            </div>
+
+                            <!-- Schedule Item 4 -->
+                            <div class="schedule-item p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                        <h3 class="font-semibold text-gray-900">Fisika Dasar</h3>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-600">15:00 - 16:40</span>
+                                </div>
+                                <div class="ml-6 text-sm text-gray-600">
+                                    <p><i class="fas fa-user mr-2"></i>Dr. Budi Santoso</p>
+                                    <p><i class="fas fa-map-marker-alt mr-2"></i>Lab Fisika</p>
+                                </div>
+                            </div>
+
+                            <!-- Schedule Item 5 -->
+                            <div class="schedule-item p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                        <h3 class="font-semibold text-gray-900">Praktikum Database</h3>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-600">17:00 - 18:40</span>
+                                </div>
+                                <div class="ml-6 text-sm text-gray-600">
+                                    <p><i class="fas fa-user mr-2"></i>Ir. Rina Maharani</p>
+                                    <p><i class="fas fa-map-marker-alt mr-2"></i>Lab Database</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <button class="bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition-colors">
+                                <i class="fas fa-plus mr-2"></i>Tambah Jadwal
+                            </button>
+                            <button class="border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-calendar mr-2"></i>Lihat Kalender
+                            </button>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column - News & Progress -->
+                <div class="space-y-8">
+                    <!-- Academic News -->
+                    <section class="activity-card p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-gray-900">Berita Akademik</h2>
+                            <span class="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs font-medium">
+                                7 Baru
+                            </span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="news-card p-4 border-l-4 border-red-500">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="font-semibold text-gray-900 text-sm">
+                                        Pengumuman UTS Semester Ganjil
+                                    </h3>
+                                    <span class="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-medium">
+                                        Penting
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">
+                                    Ujian Tengah Semester akan dimulai pada tanggal 15 Oktober 2024
+                                </p>
+                                <div class="text-xs text-gray-500">2 jam yang lalu</div>
+                            </div>
+
+                            <div class="news-card p-4 border-l-4 border-blue-500">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="font-semibold text-gray-900 text-sm">
+                                        Workshop Coding Bootcamp
+                                    </h3>
+                                    <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs font-medium">
+                                        Event
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">
+                                    Daftar sekarang untuk workshop programming gratis
+                                </p>
+                                <div class="text-xs text-gray-500">5 jam yang lalu</div>
+                            </div>
+
+                            <div class="news-card p-4 border-l-4 border-green-500">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="font-semibold text-gray-900 text-sm">
+                                        Beasiswa Prestasi Akademik
+                                    </h3>
+                                    <span class="bg-green-100 text-green-600 px-2 py-1 rounded text-xs font-medium">
+                                        Beasiswa
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">
+                                    Pendaftaran beasiswa dibuka hingga akhir bulan
+                                </p>
+                                <div class="text-xs text-gray-500">1 hari yang lalu</div>
+                            </div>
+
+                            <div class="news-card p-4 border-l-4 border-yellow-500">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="font-semibold text-gray-900 text-sm">
+                                        Lomba Sains Nasional
+                                    </h3>
+                                    <span class="bg-yellow-100 text-yellow-600 px-2 py-1 rounded text-xs font-medium">
+                                        Kompetisi
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">
+                                    Daftarkan tim Anda untuk lomba sains tingkat nasional
+                                </p>
+                                <div class="text-xs text-gray-500">2 hari yang lalu</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Quick Actions -->
+                    <section class="activity-card p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Aksi Cepat</h2>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <button class="bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl p-4 text-center transition-colors">
+                                <i class="fas fa-upload text-blue-600 text-xl mb-2 block"></i>
+                                <span class="text-sm font-medium text-blue-700">Upload Tugas</span>
+                            </button>
+                            
+                            <button class="bg-green-50 hover:bg-green-100 border border-green-200 rounded-xl p-4 text-center transition-colors">
+                                <i class="fas fa-video text-green-600 text-xl mb-2 block"></i>
+                                <span class="text-sm font-medium text-green-700">Join Meeting</span>
+                            </button>
+                            
+                            <button class="bg-purple-50 hover:bg-purple-100 border border-purple-200 rounded-xl p-4 text-center transition-colors">
+                                <i class="fas fa-book-reader text-purple-600 text-xl mb-2 block"></i>
+                                <span class="text-sm font-medium text-purple-700">Baca Materi</span>
+                            </button>
+                            
+                            <button class="bg-orange-50 hover:bg-orange-100 border border-orange-200 rounded-xl p-4 text-center transition-colors">
+                                <i class="fas fa-chart-line text-orange-600 text-xl mb-2 block"></i>
+                                <span class="text-sm font-medium text-orange-700">Lihat Nilai</span>
+                            </button>
+                        </div>
+                    </section>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-2xl font-bold text-gray-900">5</p>
-                        <p class="text-gray-500 text-sm">Jadwal Hari Ini</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-2xl font-bold text-gray-900">15</p>
-                        <p class="text-gray-500 text-sm">Pesan Baru</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Recent Activities -->
-            <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl shadow-sm p-6">
+            <!-- Weekly Schedule Overview -->
+            <section class="mt-12">
+                <div class="activity-card p-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-semibold text-gray-900">Aktivitas Terbaru</h3>
-                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Lihat Semua</button>
+                        <h2 class="text-2xl font-bold text-gray-900">Jadwal Minggu Ini</h2>
+                        <div class="flex space-x-2">
+                            <button class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-200 transition-colors">
+                                <i class="fas fa-calendar-week mr-2"></i>Minggu Ini
+                            </button>
+                            <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-calendar-month mr-2"></i>Bulan Ini
+                            </button>
+                        </div>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-4 p-4 hover:bg-gray-50 rounded-lg transition-colors">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"></path>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-gray-900 font-medium">Tugas Matematika telah dikumpulkan</p>
-                                <p class="text-gray-500 text-sm">2 jam yang lalu</p>
-                            </div>
-                        </div>
 
-                        <div class="flex items-start space-x-4 p-4 hover:bg-gray-50 rounded-lg transition-colors">
-                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                    <!-- Weekly Calendar -->
+                    <div class="overflow-x-auto">
+                        <div class="min-w-full">
+                            <div class="grid grid-cols-7 gap-4 mb-4">
+                                <!-- Day Headers -->
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-500 mb-2">Senin</div>
+                                    <div class="text-lg font-bold text-gray-900">1</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-500 mb-2">Selasa</div>
+                                    <div class="text-lg font-bold bg-blue-600 text-white w-8 h-8 rounded-full mx-auto flex items-center justify-center">2</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-500 mb-2">Rabu</div>
+                                    <div class="text-lg font-bold text-gray-900">3</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-500 mb-2">Kamis</div>
+                                    <div class="text-lg font-bold text-gray-900">4</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-500 mb-2">Jumat</div>
+                                    <div class="text-lg font-bold text-gray-900">5</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-500 mb-2">Sabtu</div>
+                                    <div class="text-lg font-bold text-gray-900">6</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-500 mb-2">Minggu</div>
+                                    <div class="text-lg font-bold text-gray-900">7</div>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="text-gray-900 font-medium">Kelas Bahasa Inggris selesai</p>
-                                <p class="text-gray-500 text-sm">4 jam yang lalu</p>
-                            </div>
-                        </div>
 
-                        <div class="flex items-start space-x-4 p-4 hover:bg-gray-50 rounded-lg transition-colors">
-                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-gray-900 font-medium">Pesan baru dari guru Fisika</p>
-                                <p class="text-gray-500 text-sm">1 hari yang lalu</p>
+                            <!-- Schedule Events -->
+                            <div class="grid grid-cols-7 gap-4">
+                                <!-- Monday -->
+                                <div class="space-y-2">
+                                    <div class="bg-blue-100 border-l-4 border-blue-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-blue-800">Database</div>
+                                        <div class="text-blue-600">08:00-09:40</div>
+                                    </div>
+                                    <div class="bg-green-100 border-l-4 border-green-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-green-800">Web Programming</div>
+                                        <div class="text-green-600">10:00-11:40</div>
+                                    </div>
+                                </div>
+
+                                <!-- Tuesday (Today) -->
+                                <div class="space-y-2 bg-blue-50 p-2 rounded-lg border-2 border-blue-200">
+                                    <div class="bg-blue-100 border-l-4 border-blue-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-blue-800">Matematika</div>
+                                        <div class="text-blue-600">08:00-09:40</div>
+                                    </div>
+                                    <div class="bg-green-100 border-l-4 border-green-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-green-800">Algoritma</div>
+                                        <div class="text-green-600">10:00-11:40</div>
+                                    </div>
+                                    <div class="bg-purple-100 border-l-4 border-purple-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-purple-800">B. Inggris</div>
+                                        <div class="text-purple-600">13:00-14:40</div>
+                                    </div>
+                                    <div class="bg-red-100 border-l-4 border-red-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-red-800">Fisika</div>
+                                        <div class="text-red-600">15:00-16:40</div>
+                                    </div>
+                                </div>
+
+                                <!-- Wednesday -->
+                                <div class="space-y-2">
+                                    <div class="bg-purple-100 border-l-4 border-purple-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-purple-800">Statistika</div>
+                                        <div class="text-purple-600">09:00-10:40</div>
+                                    </div>
+                                    <div class="bg-orange-100 border-l-4 border-orange-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-orange-800">Jaringan</div>
+                                        <div class="text-orange-600">13:00-14:40</div>
+                                    </div>
+                                </div>
+
+                                <!-- Thursday -->
+                                <div class="space-y-2">
+                                    <div class="bg-indigo-100 border-l-4 border-indigo-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-indigo-800">AI & ML</div>
+                                        <div class="text-indigo-600">08:00-09:40</div>
+                                    </div>
+                                    <div class="bg-pink-100 border-l-4 border-pink-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-pink-800">Seminar</div>
+                                        <div class="text-pink-600">14:00-15:40</div>
+                                    </div>
+                                </div>
+
+                                <!-- Friday -->
+                                <div class="space-y-2">
+                                    <div class="bg-yellow-100 border-l-4 border-yellow-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-yellow-800">Praktikum DB</div>
+                                        <div class="text-yellow-600">08:00-11:40</div>
+                                    </div>
+                                </div>
+
+                                <!-- Saturday -->
+                                <div class="space-y-2">
+                                    <div class="bg-gray-100 border-l-4 border-gray-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-gray-800">Study Group</div>
+                                        <div class="text-gray-600">10:00-12:00</div>
+                                    </div>
+                                </div>
+
+                                <!-- Sunday -->
+                                <div class="space-y-2">
+                                    <div class="bg-blue-100 border-l-4 border-blue-500 p-2 rounded text-xs">
+                                        <div class="font-medium text-blue-800">Free Learning</div>
+                                        <div class="text-blue-600">Fleksibel</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Quick Actions & Schedule -->
-            <div class="space-y-6">
-                <!-- Quick Actions -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Aksi Cepat</h3>
-                    <div class="space-y-3">
-                        <button class="w-full flex items-center space-x-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
-                            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                </svg>
-                            </div>
-                            <span class="text-gray-700 font-medium">Buat Tugas Baru</span>
-                        </button>
-
-                        <button class="w-full flex items-center space-x-3 p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
-                            <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h2a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h1m5-6h4"></path>
-                                </svg>
-                            </div>
-                            <span class="text-gray-700 font-medium">Jadwalkan Kelas</span>
-                        </button>
-
-                        <button class="w-full flex items-center space-x-3 p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
-                            <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
-                                </svg>
-                            </div>
-                            <span class="text-gray-700 font-medium">Kirim Pesan</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Today's Schedule -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Jadwal Hari Ini</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center space-x-3 p-3 border-l-4 border-blue-400 bg-blue-50 rounded-r-lg">
-                            <div class="text-blue-600 font-semibold">09:00</div>
-                            <div class="flex-1">
-                                <p class="font-medium text-gray-900">Matematika</p>
-                                <p class="text-sm text-gray-500">Ruang A1</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center space-x-3 p-3 border-l-4 border-green-400 bg-green-50 rounded-r-lg">
-                            <div class="text-green-600 font-semibold">11:00</div>
-                            <div class="flex-1">
-                                <p class="font-medium text-gray-900">Bahasa Inggris</p>
-                                <p class="text-sm text-gray-500">Ruang B2</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center space-x-3 p-3 border-l-4 border-purple-400 bg-purple-50 rounded-r-lg">
-                            <div class="text-purple-600 font-semibold">14:00</div>
-                            <div class="flex-1">
-                                <p class="font-medium text-gray-900">Fisika</p>
-                                <p class="text-sm text-gray-500">Lab Sains</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
-    
-    <!-- Mobile Navigation Menu (Hidden by default) -->
-    <div id="mobile-menu" class="md:hidden hidden bg-blue-500 shadow-lg">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" class="block px-3 py-2 text-white font-medium rounded-md hover:bg-white hover:bg-opacity-10">Beranda</a>
-            <a href="#" class="block px-3 py-2 text-white font-medium rounded-md hover:bg-white hover:bg-opacity-10">Kelas</a>
-            <a href="#" class="block px-3 py-2 text-white font-medium rounded-md hover:bg-white hover:bg-opacity-10">Penjadwalan</a>
-            <a href="#" class="block px-3 py-2 text-white font-medium rounded-md hover:bg-white hover:bg-opacity-10">Obrolan</a>
-        </div>
-    </div>
 
+    <!-- JavaScript -->
     <script>
-        // Simple mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Change Language
+        function changeLanguage(code, name) {
+            document.getElementById('current-lang').textContent = code;
+            // Here you would typically implement actual language switching
+            console.log('Language changed to:', name);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.hover-lift, .activity-card, .news-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Real-time clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // Update if there's a clock element
+            const clockElement = document.getElementById('current-time');
+            if (clockElement) {
+                clockElement.textContent = timeString;
+            }
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
+            
+            const bgColors = {
+                'info': 'bg-blue-500',
+                'success': 'bg-green-500',
+                'warning': 'bg-yellow-500',
+                'error': 'bg-red-500'
+            };
+            
+            notification.classList.add(bgColors[type] || bgColors['info']);
+            notification.innerHTML = `
+                <div class="flex items-center text-white">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-4 hover:bg-white hover:bg-opacity-20 rounded p-1">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Demo notifications
+        setTimeout(() => {
+            showNotification('Selamat datang kembali, Chaya! 👋', 'success');
+        }, 2000);
+
+        setTimeout(() => {
+            showNotification('Anda memiliki 2 tugas yang akan deadline minggu ini', 'warning');
+        }, 5000);
+
+        // Progressive Web App features
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
     </script>
 </body>
 </html>

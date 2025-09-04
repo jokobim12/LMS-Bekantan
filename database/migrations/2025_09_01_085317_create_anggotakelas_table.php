@@ -19,15 +19,19 @@ return new class extends Migration
 
             $table->string('kelasId', 12)->nullable();
 
-            $table->unsignedInteger('userId');  
+            $table->unsignedInteger('userId')->nullable();
             $table->foreign('userId')
-                  ->references('userId')
-                  ->on('users')->onDelete('cascade');
+                ->references('userId')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
 
 
             $table->foreign('kelasId')
-                ->references('kelasId')->on('kelas')
-                ->onDelete('cascade');
+                ->references('kelasId')
+                ->on('kelas')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 

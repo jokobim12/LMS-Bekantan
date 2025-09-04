@@ -22,21 +22,29 @@ return new class extends Migration
             $table->string('tempatLahir', 100)->nullable();
             $table->year('angkatan')->nullable();
 
-            $table->string('prodiId', 12);
+            // Kolom prodiId nullable (untuk onDelete set null)
+            $table->string('prodiId', 12)->nullable();
 
             $table->timestamps();
 
-            // Definisi foreign key
-            $table->unsignedInteger('userId');  
-            $table->foreign('userId')
-                  ->references('userId')
-                  ->on('users')->onDelete('cascade');
+            // Kolom userId nullable dan unsigned (untuk onDelete set null dan FK ke users)
+            $table->integer('userId')->unsigned()->nullable();
 
+            // Foreign key ke tabel users
+            $table->foreign('userId')
+                ->references('userId')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+
+            // Foreign key ke tabel programstudi (pastikan struktur & tipe sama di tabel programstudi)
             $table->foreign('prodiId')
-                ->references('prodiId')->on('programstudi')
-                ->onDelete('cascade');
-    });
-}
+                ->references('prodiId')
+                ->on('programstudi')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
+    }
 
     /**
      * Reverse the migrations.

@@ -21,15 +21,15 @@ class DashboardStats extends BaseWidget
     {
         return [
             Card::make('Total Kelas', Kelas::count())
-                ->icon('heroicon-o-academic-cap'),
+                ->icon('heroicon-o-home-modern'),
             Card::make('Total Mahasiswa', Mahasiswa::count())
                 ->icon('heroicon-o-users'),
             Card::make('Total Pengajar', Pengajar::count())
                 ->icon('heroicon-o-user-circle'),
             Card::make('Total Mata Kuliah', MataKuliah::count())
                 ->icon('heroicon-o-book-open'),
-            Card::make('Total Anggota Kelas', Programstudi::count())
-                ->icon('heroicon-o-user-group'),
+            Card::make('Total Program Studi', Programstudi::count())
+                ->icon('heroicon-o-academic-cap'),
             Card::make('Total Akun', User::count())
                 ->icon('heroicon-o-user-group'),
             

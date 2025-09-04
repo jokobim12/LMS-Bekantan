@@ -13,27 +13,32 @@
             <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input type="file" id="photo" class="hidden"
-                            wire:model.live="photo"
-                            x-ref="photo"
-                            x-on:change="
-                                    photoName = $refs.photo.files[0].name;
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        photoPreview = e.target.result;
-                                    };
-                                    reader.readAsDataURL($refs.photo.files[0]);
-                            " />
+                       wire:model.live="photo"
+                       x-ref="photo"
+                       x-on:change="
+                                photoName = $refs.photo.files[0].name;
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    photoPreview = e.target.result;
+                                };
+                                reader.readAsDataURL($refs.photo.files[0]);
+                        " />
 
                 <x-label for="photo" value="{{ __('Photo') }}" />
 
                 <!-- Current Profile Photo -->
-                <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full size-20 object-cover">
+                <div class="mt-2" x-show="!photoPreview">
+                    <img 
+                        src="{{ $this->user->profile_photo_url }}" 
+                        alt="{{ $this->user->name }}" 
+                        class="rounded-full w-20 h-20 object-cover"
+                        onerror="this.onerror=null;this.src='/images/default-avatar.png';"
+                    >
                 </div>
 
                 <!-- New Profile Photo Preview -->
                 <div class="mt-2" x-show="photoPreview" style="display: none;">
-                    <span class="block rounded-full size-20 bg-cover bg-no-repeat bg-center"
+                    <span class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
                           x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
                     </span>
                 </div>

@@ -13,6 +13,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
 
 class MahasiswaResource extends Resource
 {
@@ -85,6 +87,52 @@ class MahasiswaResource extends Resource
                 TextColumn::make('user.name')->label('User'),
                 TextColumn::make('programStudi.nama')->label('Prodi'),
             ])
+
+            ->filters([
+                // Filter berdasarkan Nama Lengkap (text search)
+                Filter::make('namaLengkap')
+                    ->form([
+                        Forms\Components\TextInput::make('namaLengkap')->label('Cari Nama'),
+                    ])
+                    ->query(function ($query, $data) {
+                        if ($data['namaLengkap']) {
+                            $query->where('namaLengkap', 'like', '%' . $data['namaLengkap'] . '%');
+                        }
+                    }),
+                // Filter berdasarkan NIM
+                Filter::make('nim')
+                    ->form([
+                        Forms\Components\TextInput::make('nim')->label('Cari NIM'),
+                    ])
+                    ->query(function ($query, $data) {
+                        if ($data['nim']) {
+                            $query->where('nim', 'like', '%' . $data['nim'] . '%');
+                        }
+                    }),
+                // Filter berdasarkan Angkatan
+                Filter::make('angkatan')
+                    ->form([
+                        Forms\Components\TextInput::make('angkatan')->label('Angkatan'),
+                    ])
+                    ->query(function ($query, $data) {
+                        if ($data['angkatan']) {
+                            $query->where('angkatan', $data['angkatan']);
+                        }
+                    }),
+                // SelectFilter untuk Prodi dan Jenis Kelamin tetap!
+                SelectFilter::make('prodiId')
+                    ->label('Program Studi')
+                    ->relationship('programStudi', 'nama')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('jenisKelamin')
+                    ->label('Jenis Kelamin')
+                    ->options([
+                        'L' => 'Laki-laki',
+                        'P' => 'Perempuan',
+                    ]),
+            ])
+
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

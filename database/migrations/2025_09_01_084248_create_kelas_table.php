@@ -20,21 +20,23 @@ return new class extends Migration
                 $table->timestamps();
 
                 // FK ke pengajar
-                $table->string('pengajarId', 12);
+                $table->string('pengajarId', 12)->nullable();
 
                 // FK ke matakuliah
-                $table->string('mkId', 12);
+                $table->string('mkId', 12)->nullable();
 
                 // Foreign key definisi
                 $table->foreign('pengajarId')
                     ->references('pengajarId')
                     ->on('pengajars')
-                    ->onDelete('cascade');
+                    ->onUpdate('cascade')
+                    ->onDelete('set null');
 
                 $table->foreign('mkId')
                     ->references('mkId')
                     ->on('matakuliah')
-                    ->onDelete('cascade');
+                    ->onUpdate('cascade')
+                    ->onDelete('set null');
         });
     }
 

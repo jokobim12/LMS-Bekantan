@@ -58,6 +58,8 @@ Route::middleware([
     })->middleware(['auth']);
     Route::view('/jadwal', 'mahasiswa.jadwal')->middleware(['auth']);
     Route::view('/obrolan', 'mahasiswa.obrolan')->middleware(['auth']);
+    
+    //Route ke halaman profil
     Route::view('/profil', 'mahasiswa.profil')->middleware(['auth']);
     Route::view('/index', 'mahasiswa.index')->middleware(['auth']);
 });

@@ -67,7 +67,7 @@
         }
         
         .welcome-card {
-            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
             border-radius: 24px;
             position: relative;
             overflow: hidden;
@@ -119,7 +119,7 @@
         }
         
         .progress-bar {
-            background: linear-gradient(90deg, #1e40af 0%, #3730a3 100%);
+            background: linear-gradient(90deg, #1e40af 100%, #3730a3 0%);
             border-radius: 10px;
             height: 8px;
         }
@@ -135,7 +135,7 @@
         }
         
         .schedule-item:hover {
-            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
             color: white;
             transform: translateX(8px);
         }
@@ -162,7 +162,7 @@
                         <i class="fas fa-chalkboard-teacher text-white text-lg"></i>
                     </div>
                     <div>
-                        <span class="text-xl font-bold text-gray-900">EduSphere</span>
+                        <span class="text-xl font-bold text-gray-900">Bekantan Jantan</span>
                         <div class="text-xs text-gray-500">Lecturer Portal</div>
                     </div>
                 </div>
@@ -178,26 +178,11 @@
                     <!-- Kelas Saya -->
                     <div class="dropdown relative">
                         <button class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                            <i class="fas fa-users-class"></i>
-                            <span>Kelas Saya</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
+                            <a href="{{ url('/kelas') }}" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                                <i class="fas fa-book-open"></i>
+                                <span>Kelas Akademik</span>
+                            </a>
                         </button>
-                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100">
-                            <div class="p-4">
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-laptop-code mr-3 text-blue-500"></i>Algoritma & Pemrograman
-                                </a>
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-database mr-3 text-green-500"></i>Basis Data
-                                </a>
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-globe mr-3 text-purple-500"></i>Pemrograman Web
-                                </a>
-                                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
-                                    <i class="fas fa-brain mr-3 text-red-500"></i>Kecerdasan Buatan
-                                </a>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Penilaian -->
@@ -241,16 +226,17 @@
                     <!-- Profile -->
                     <div class="dropdown relative">
                         <button class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=faces" 
-                                 alt="Profile" class="w-8 h-8 rounded-full">
-                            <span class="font-medium">Dr. Ahmad</span>
+                            <span class="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center font-bold">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                            </span>
+                            <span class="font-medium">{{ Auth::user()->name }}</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
                         <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100">
                             <div class="p-4">
                                 <div class="px-4 py-3 border-b border-gray-100">
-                                    <p class="font-medium text-gray-900">Dr. Ahmad Sutrisno</p>
-                                    <p class="text-sm text-gray-500">Dosen Teknik Informatika</p>
+                                    <p class="font-medium text-gray-900">{{ Auth::user()->name }}</p>
+                                    <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
                                 </div>
                                 <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
                                     <i class="fas fa-user mr-3"></i>Profil Saya
@@ -289,7 +275,7 @@
                 <div class="welcome-card p-8 text-white relative">
                     <div class="relative z-10">
                         <h1 class="text-3xl font-bold mb-2">
-                            Selamat Datang, Dr. Ahmad! 👨‍🏫
+                            Selamat Datang, {{ Auth::user()->name }}! 👋
                         </h1>
                         <p class="text-lg opacity-90">
                             Semangat mengajar hari ini! Ada 3 kelas dan 12 tugas menunggu untuk dinilai.
@@ -1408,19 +1394,6 @@
 
         setInterval(updateClock, 1000);
         updateClock();
-
-        // Demo lecturer notifications
-        setTimeout(() => {
-            showNotification('Selamat datang kembali, Dr. Ahmad! 👨‍🏫', 'success');
-        }, 2000);
-
-        setTimeout(() => {
-            showNotification('Anda memiliki 12 tugas baru yang perlu dinilai', 'warning');
-        }, 5000);
-
-        setTimeout(() => {
-            showNotification('Sari Dewi mengirim pertanyaan baru', 'info');
-        }, 8000);
 
         // Auto-refresh pending tasks counter
         function updatePendingTasks() {

@@ -14,7 +14,7 @@
         }
         
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
         }
         
         .glass-morphism {
@@ -53,7 +53,7 @@
         }
         
         .stat-card {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
         }
         
         .navbar-blur {
@@ -76,7 +76,7 @@
         }
         
         .welcome-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
             border-radius: 24px;
             position: relative;
             overflow: hidden;
@@ -113,7 +113,7 @@
         }
         
         .schedule-item:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
             color: white;
             transform: translateX(8px);
         }
@@ -132,7 +132,7 @@
         }
         
         .progress-bar {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #1e40af 100%, #3730a3 0%);
             border-radius: 10px;
             height: 8px;
         }

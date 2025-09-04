@@ -14,7 +14,7 @@
         }
         
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
         }
         
         .glass-morphism {
@@ -53,7 +53,7 @@
         }
         
         .stat-card {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
         }
         
         .navbar-blur {
@@ -76,7 +76,7 @@
         }
         
         .welcome-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
             border-radius: 24px;
             position: relative;
             overflow: hidden;
@@ -108,12 +108,12 @@
         
         .schedule-item {
             background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #1e40af;
             transition: all 0.3s ease;
         }
         
         .schedule-item:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 100%, #3730a3 0%);
             color: white;
             transform: translateX(8px);
         }
@@ -132,7 +132,7 @@
         }
         
         .progress-bar {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #1e40af 100%, #3730a3 0%);
             border-radius: 10px;
             height: 8px;
         }
@@ -209,16 +209,16 @@
                     <div class="dropdown relative">
                         <button class="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition-colors">
                             <span class="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center font-bold">
-                                C
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </span>
-                            <span class="font-medium">Chaya</span>
+                            <span class="font-medium">{{ Auth::user()->name }}</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
                         <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100">
                             <div class="p-4">
                                 <div class="px-4 py-3 border-b border-gray-100">
-                                    <p class="font-medium text-gray-900">Chaya Dewi</p>
-                                    <p class="text-sm text-gray-500">chaya@student.ac.id</p>
+                                    <p class="font-medium text-gray-900">{{ Auth::user()->name }}</p>
+                                    <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
                                 </div>
                                 <a href="{{ url('/profil') }}" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
                                     <i class="fas fa-user mr-3"></i>Profil Saya
@@ -252,7 +252,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border p-8">
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border p-8 mt-24">
         <!-- Header -->
         <div class="flex items-center space-x-6 mb-8">
             <div class="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center text-white text-2xl font-bold">

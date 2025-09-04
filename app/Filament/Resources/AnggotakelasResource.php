@@ -30,7 +30,8 @@ class AnggotakelasResource extends Resource
                 TextInput::make('anggotaKelasId')
                     ->label('ID Anggota Kelas')
                     ->required()
-                    ->maxLength(12),
+                    ->maxLength(12)
+                    ->unique(ignoreRecord: true),
                 Select::make('userId')
                     ->label('User')
                     ->relationship('user', 'name') // ganti 'name' ke 'email' jika user tidak punya kolom name

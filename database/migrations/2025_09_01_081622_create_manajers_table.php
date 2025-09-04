@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('manajers', function (Blueprint $table) {
             $table->string('managerId', 12)->primary();
-            $table->string('nik', 16);
+            $table->string('nik', 16)
+                ->unique();
             $table->string('nama', 250);
             $table->string('noHp', 12);
             $table->text('alamat');

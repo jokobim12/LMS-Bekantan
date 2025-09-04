@@ -29,7 +29,8 @@ class KelasResource extends Resource
                 TextInput::make('kelasId')
                     ->label('ID Kelas')
                     ->required()
-                    ->maxLength(12), // Atur sesuai kebutuhan
+                    ->maxLength(12)
+                    ->unique(ignoreRecord: true),
                 TextInput::make('nama')
                     ->label('Nama Kelas')
                     ->required()

@@ -32,10 +32,12 @@ class MahasiswaResource extends Resource
                 TextInput::make('mhsId')
                     ->label('ID Mahasiswa')
                     ->required()
-                    ->maxLength(12),
+                    ->maxLength(12)
+                    ->unique(ignoreRecord: true),
                 TextInput::make('nim')
                     ->label('NIM')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(10),
                 TextInput::make('namaLengkap')
                     ->label('Nama Lengkap')

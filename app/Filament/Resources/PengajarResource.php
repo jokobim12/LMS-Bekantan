@@ -29,10 +29,12 @@ class PengajarResource extends Resource
                 TextInput::make('pengajarId')
                     ->label('ID Pengajar')
                     ->required()
-                    ->maxLength(12),
+                    ->maxLength(12)
+                    ->unique(ignoreRecord: true),
                 TextInput::make('nip')
                     ->label('NIP')
-                    ->maxLength(30),
+                    ->maxLength(30)
+                    ->unique(ignoreRecord: true),
                 TextInput::make('nama')
                     ->label('Nama')
                     ->required()

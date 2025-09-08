@@ -12,14 +12,16 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
 
 class MatakuliahResource extends Resource
 {
     protected static ?string $model = MataKuliah::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-protected static ?string $navigationGroup = 'Manage';    
-protected static ?string $navigationLabel = 'Kelola Mata Kuliah';
+    protected static ?string $navigationGroup = 'Manage';
+    protected static ?string $navigationLabel = 'Kelola Mata Kuliah';
     protected static ?string $pluralLabel = 'Mata Kuliah';
 
     public static function form(Form $form): Form
@@ -29,7 +31,19 @@ protected static ?string $navigationLabel = 'Kelola Mata Kuliah';
                 TextInput::make('mkId')
                     ->label('ID Mata Kuliah')
                     ->required()
-                    ->maxLength(12),
+                    ->maxLength(12)
+                    ->formatStateUsing(fn ($state) => 'MK' . $state)
+                        ->default(function () {
+        $lastId = \App\Models\MataKuliah::orderBy('mkId', 'desc')->first()?->mkId;
+        if ($lastId) {
+            // Ambil angka di belakang MK
+            $number = (int) str_replace('MK', '', $lastId);
+            $newNumber = str_pad($number + 1, 2, '0', STR_PAD_LEFT);
+        } else {
+            $newNumber = '01';
+        }
+        return $newNumber; // Hanya angka, prefix nanti ditambah di bawah
+    }),
                 TextInput::make('nama')
                     ->label('Nama Mata Kuliah')
                     ->required()
@@ -37,11 +51,15 @@ protected static ?string $navigationLabel = 'Kelola Mata Kuliah';
                 TextInput::make('sksTeori')
                     ->label('SKS Teori')
                     ->numeric()
-                    ->required(),
+                    ->required()
+                    ->minValue(0)
+                    ->maxValue(3),
                 TextInput::make('sksPraktikum')
                     ->label('SKS Praktikum')
                     ->numeric()
-                    ->required(),
+                    ->required()
+                    ->minValue(0)
+                    ->maxValue(3),
                 TextInput::make('semester')
                     ->label('Semester')
                     ->numeric()
@@ -59,6 +77,31 @@ protected static ?string $navigationLabel = 'Kelola Mata Kuliah';
                 TextColumn::make('sksPraktikum')->label('SKS Praktikum'),
                 TextColumn::make('semester')->label('Semester'),
             ])
+
+            ->filters([
+                // Filter berdasarkan Nama Lengkap (text search)
+                Filter::make('nama')
+                    ->form([
+                        Forms\Components\TextInput::make('nama')->label('Cari Nama Mata Kuliah'),
+                    ])
+                    ->query(function ($query, $data) {
+                        if ($data['nama']) {
+                            $query->where('nama', 'like', '%' . $data['nama'] . '%');
+                        }
+                    }),
+                // Filter berdasarkan Semester
+                Filter::make('semester')
+                    ->form([
+                        Forms\Components\TextInput::make('semester')->label('Cari Semester'),
+                    ])
+                    ->query(function ($query, $data) {
+                        if ($data['semester']) {
+                            $query->where('semester', 'like', '%' . $data['semester'] . '%');
+                        }
+                    }),
+            ])
+
+
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

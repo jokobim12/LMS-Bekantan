@@ -33,7 +33,19 @@ class MahasiswaResource extends Resource
                     ->label('ID Mahasiswa')
                     ->required()
                     ->maxLength(12)
-                    ->unique(ignoreRecord: true),
+                     ->disabled(fn($record) => $record != null)
+                    ->unique(ignoreRecord: true)
+                    ->default(function () {
+                        $lastId = \App\Models\Mahasiswa::orderBy('mhsId', 'desc')->first()?->mhsId;
+                        if ($lastId) {
+                            // Ambil angka di belakang MHS
+                            $number = (int) str_replace('MHS', '', $lastId);
+                            $newNumber = str_pad($number + 1, 2, '0', STR_PAD_LEFT);
+                        } else {
+                            $newNumber = '01';
+                        }
+                        return $newNumber; // Hanya angka, prefix nanti ditambah di bawah
+                    }),
                 TextInput::make('nim')
                     ->label('NIM')
                     ->required()
@@ -81,7 +93,10 @@ class MahasiswaResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('mhsId')->label('ID')->searchable(),
+                TextColumn::make('mhsId')
+                    ->label('ID')
+                    ->searchable()
+                    ->formatStateUsing(fn($state) => '' . $state),
                 TextColumn::make('nim')->label('NIM')->searchable(),
                 TextColumn::make('namaLengkap')->label('Nama')->searchable(),
                 TextColumn::make('jenisKelamin')->label('JK')->sortable(),

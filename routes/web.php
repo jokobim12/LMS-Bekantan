@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Models\MataKuliah;
+use App\Http\Controllers\Auth\GoogleController;
 
 Route::get('/welcome', function () {
     return redirect('/welcome');
@@ -58,6 +59,11 @@ Route::middleware([
     })->middleware(['auth']);
     Route::view('/jadwal', 'mahasiswa.jadwal')->middleware(['auth']);
     Route::view('/obrolan', 'mahasiswa.obrolan')->middleware(['auth']);
+    
+    //Route ke halaman profil
     Route::view('/profil', 'mahasiswa.profil')->middleware(['auth']);
     Route::view('/index', 'mahasiswa.index')->middleware(['auth']);
 });
+
+Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'callback']);

@@ -14,4 +14,12 @@ class CreateKelas extends CreateRecord
         // setelah create, langsung ke index
         return $this->getResource()::getUrl('index');
     }
+     protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Cek dulu, supaya tidak dobel prefix
+        if (!str_starts_with($data['kelasId'], 'KLS')) {
+            $data['kelasId'] = 'KLS' . $data['kelasId'];
+        }
+        return $data;
+    }
 }

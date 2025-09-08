@@ -16,4 +16,9 @@ class EditAnggotakelas extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+          protected function getRedirectUrl(): string
+    {
+        // setelah edit, langsung ke index
+        return $this->getResource()::getUrl('index');
+    }
 }

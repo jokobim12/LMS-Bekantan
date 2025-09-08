@@ -29,8 +29,20 @@ class KelasResource extends Resource
                 TextInput::make('kelasId')
                     ->label('ID Kelas')
                     ->required()
+                    ->disabled(fn($record) => $record != null)
                     ->maxLength(12)
-                    ->unique(ignoreRecord: true),
+                    ->unique(ignoreRecord: true)
+                    ->default(function () {
+                        $lastId = \App\Models\Kelas::orderBy('kelasId', 'desc')->first()?->kelasId;
+                        if ($lastId) {
+                            // Ambil angka di belakang KLS
+                            $number = (int) str_replace('KLS', '', $lastId);
+                            $newNumber = str_pad($number + 1, 2, '0', STR_PAD_LEFT);
+                        } else {
+                            $newNumber = '01';
+                        }
+                        return $newNumber; // Hanya angka, prefix nanti ditambah di bawah
+                    }),
                 TextInput::make('nama')
                     ->label('Nama Kelas')
                     ->required()
@@ -56,7 +68,8 @@ class KelasResource extends Resource
             ->columns([
                 TextColumn::make('kelasId')
                     ->label('ID Kelas')
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(fn($state) => '' . $state),
                 TextColumn::make('nama')
                     ->label('Nama Kelas')
                     ->searchable(),
